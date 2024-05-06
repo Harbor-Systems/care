@@ -30,10 +30,10 @@ export const ApptStatusToPalette: {
 } = {
   ready: {
     background: {
-      primary: '#FFE0B2',
+      primary: '#9fd6f9',
     },
     color: {
-      primary: '#E65100',
+      primary: '#237BB4',
     },
   },
   'pre-video': {
@@ -89,10 +89,10 @@ export const APPT_STATUS_MAP: {
 } = {
   ready: {
     background: {
-      primary: '#FFE0B2',
+      primary: '#9fd6f9',
     },
     color: {
-      primary: '#E65100',
+      primary: '#237BB4',
     },
   },
   'pre-video': {

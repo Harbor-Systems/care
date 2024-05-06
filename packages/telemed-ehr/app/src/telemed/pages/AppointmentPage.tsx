@@ -104,7 +104,7 @@ export const AppointmentPage: FC = () => {
       {videoToken && <VideoChatContainer />}
 
       <Container maxWidth="xl" sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 3 }}>
-        <Card sx={{ p: 3, display: 'flex', flexDirection: 'column', gap: 2, backgroundColor: '#4D15B714' }}>
+        <Card sx={{ p: 3, display: 'flex', flexDirection: 'column', gap: 2, backgroundColor: '#f7f0f4' }}>
           {!videoToken && (
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <Box>
@@ -134,14 +134,14 @@ export const AppointmentPage: FC = () => {
                 </Typography>
                 <Typography>English</Typography>
               </Box>
-              <Divider orientation="vertical" variant="fullWidth" flexItem sx={{ borderColor: '#4D15B74D' }} />
+              <Divider orientation="vertical" variant="fullWidth" flexItem sx={{ borderColor: '#a85e8a' }} />
               <Box>
                 <Typography color="primary.dark" sx={{ fontSize: '12px', fontWeight: 700 }}>
                   Hearing Impaired Relay Service? (711)
                 </Typography>
                 <Typography>No</Typography>
               </Box>
-              <Divider orientation="vertical" variant="fullWidth" flexItem sx={{ borderColor: '#4D15B74D' }} />
+              <Divider orientation="vertical" variant="fullWidth" flexItem sx={{ borderColor: '#a85e8a' }} />
               <Box>
                 <Typography color="primary.dark" sx={{ fontSize: '12px', fontWeight: 700 }}>
                   Patient number

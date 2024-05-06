@@ -447,7 +447,7 @@ export default function Schedule({ location, setLocation }: ScheduleProps): Reac
                     '&:first-of-type': {
                       borderTopLeftRadius: '8px',
                       borderBottomLeftRadius: '8px',
-                      borderLeft: '1px solid #4D15B7',
+                      borderLeft: '1px solid #a85e8a',
                     },
 
                     '&:last-child': {
@@ -463,17 +463,17 @@ export default function Schedule({ location, setLocation }: ScheduleProps): Reac
                   <Tab
                     sx={{
                       textTransform: 'none',
-                      borderRight: '1px solid #4D15B7',
-                      borderTop: '1px solid #4D15B7',
-                      borderBottom: '1px solid #4D15B7',
-                      color: '#4D15B7',
+                      borderRight: '1px solid #a85e8a',
+                      borderTop: '1px solid #a85e8a',
+                      borderBottom: '1px solid #a85e8a',
+                      color: '#a85e8a',
                       width: 'fit-content',
                       height: '36px',
                       minHeight: '36px',
                       fontWeight: 700,
                       '&.Mui-selected': {
                         color: '#FFFFFF',
-                        background: '#4D15B7',
+                        background: '#a85e8a',
                       },
                     }}
                     label={capitalize(day)}

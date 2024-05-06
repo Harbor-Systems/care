@@ -77,7 +77,7 @@ export const VideoRoom: FC<RoomProps> = ({ participants, setParticipants }) => {
         <Box sx={{ display: 'flex', padding: 1, gap: 1, height: '557px' }}>
           <Box
             sx={{
-              backgroundColor: '#301367',
+              backgroundColor: '#a85e8a',
               color: 'white',
               width: '100%',
               borderRadius: '8px',
@@ -115,7 +115,7 @@ export const VideoRoom: FC<RoomProps> = ({ participants, setParticipants }) => {
         </Box>
         <Box
           sx={{
-            backgroundColor: '#301367',
+            backgroundColor: '#a85e8a',
             display: 'flex',
             justifyContent: 'center',
           }}

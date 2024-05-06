@@ -3,6 +3,7 @@ import { Box, Typography } from '@mui/material';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { QuestionMarkButton } from 'ottehr-components';
+import { otherColors } from '../IntakeThemeProvider';
 
 const Footer: FC = () => {
   const { t } = useTranslation();
@@ -25,14 +26,15 @@ const Footer: FC = () => {
         sx={{
           width: '100%',
           backgroundColor: 'secondary.main',
+          color: 'primary.contrast',
           bottom: 0,
         }}
         display="flex"
         justifyContent="center"
         alignItems="center"
       >
-        <ErrorOutlineIcon color="warning" sx={{ pl: 1.25, marginTop: '10px', marginBottom: 'auto' }} />
-        <Typography variant="body2" color="primary.contrast" sx={{ m: 1.25, maxWidth: 850 }}>
+        <ErrorOutlineIcon color="inherit" sx={{ pl: 1.25, marginTop: '10px', marginBottom: 'auto' }} />
+        <Typography variant="body2" color={otherColors.white} sx={{ m: 1.25, maxWidth: 850 }}>
           {t('general.footer')}
         </Typography>
       </Box>

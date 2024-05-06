@@ -17,12 +17,11 @@ import {
 } from '@mui/material';
 import { MouseEvent, ReactElement, SyntheticEvent, useEffect, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import logo from '../../assets/logo-4x.png';
 import { useUserRole } from '../../hooks/useUserRole';
 import { useCommonStore } from '../../state/common.store';
 import { AppTab, useNavStore } from '../../state/nav.store';
 import { RoleType } from '../../types/types';
-import { otherColors } from '../../CustomThemeProvider';
+import { logo, otherColors, otherTypography } from '../../CustomThemeProvider';
 
 const { VITE_APP_ORGANIZATION_NAME_SHORT: ORGANIZATION_NAME_SHORT } = import.meta.env;
 if (ORGANIZATION_NAME_SHORT == null) {
@@ -116,12 +115,12 @@ export default function Navbar(): ReactElement {
         <Toolbar disableGutters variant="dense">
           <Link to="/">
             <img
-              src={logo}
+              src={logo.url}
               alt={`${ORGANIZATION_NAME_SHORT} logo`}
               style={{
                 marginRight: 20,
                 marginTop: 10,
-                width: 158,
+                width: logo.width,
               }}
             />
           </Link>
@@ -145,12 +144,7 @@ export default function Navbar(): ReactElement {
                   aria-controls={`hello-${index}`} // `tabpanel-${index}`
                   component={Link}
                   to={navbarItems[navbarItem]!.urls?.[0]}
-                  sx={{
-                    fontSize: 16,
-                    fontWeight: 700,
-                    textTransform: 'capitalize',
-                    color: '#FFFFFF',
-                  }}
+                  sx={otherTypography.navbarItem}
                 />
               ))}
           </TabList>

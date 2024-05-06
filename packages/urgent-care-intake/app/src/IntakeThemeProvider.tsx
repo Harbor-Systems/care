@@ -11,14 +11,14 @@ export const otherColors = {
   borderLightBlue: '#4294F3',
   checkIcon: '#7045F2',
   clearImage: '#EB5757',
-  coachingVisit: '#EDE8FF',
-  darkPurple: '#301367',
+  coachingVisit: '#f7f0f4',
+  darkPurple: '#a85e8a',
   brightPurple: '#2169F5', // changed color
   darkGreen: '#0F5A4C',
   lightGreen: '#C1FBEA',
   brown: '#604203',
   white: '#FFFFFF',
-  lightPurpleAlt: '#2896C6', //changed color
+  lightPurpleAlt: '#f7f0f4', //changed color
   languageIcon: 'rgba(15, 229, 189, 1)',
   lightBlue: '#E2F0FF',
   lightGray: '#CED4DA',
@@ -44,17 +44,17 @@ const { palette: p } = createTheme(); // TODO: once https://github.com/mui/mater
 
 export const palette = {
   text: {
-    primary: '#212130',
-    secondary: '#2169F5',
-    disabled: '#C3C9D2',
+    primary: '#393939',
+    secondary: '#393939',
+    disabled: '#A6ABB9',
   },
   primary: {
-    main: '#061B74',
-    contrast: '#061B74',
+    main: '#a85e8a',
+    contrast: '#a85e8a',
   },
   secondary: {
-    main: '#2169F5',
-    contrast: '#213450',
+    main: '#542f45',
+    contrast: '#542f45',
   },
   tertiary: p.augmentColor({ color: { main: '#ECE4FB' } }),
   step: {
@@ -67,7 +67,7 @@ export const palette = {
     main: '#66BA70',
   },
   warning: {
-    main: '#FFDF9A',
+    main: '#fdfbd2',
   },
   error: {
     main: '#EC6930',
