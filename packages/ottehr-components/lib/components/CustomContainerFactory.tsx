@@ -93,7 +93,7 @@ export const CustomContainer: FC<ContainerProps> = ({
         justifyContent: 'space-between',
       }}
     >
-      <AppBar position="static" sx={{ backgroundColor: 'gray' }}>
+      <AppBar position="static" sx={{ backgroundColor: '#FFFFFF' }}>
         <Grid container justifyContent="space-between">
           <Grid item></Grid>
           <Grid

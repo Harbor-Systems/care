@@ -1,10 +1,11 @@
 import { Assessment } from '@mui/icons-material';
-import { Container, Tooltip, Typography } from '@mui/material';
+import { Container, Tooltip, Typography, useTheme } from '@mui/material';
 import { ReactElement, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Sidebar, SidebarItem } from '../components/navigation/Sidebar';
 import { useUserRole } from '../hooks/useUserRole';
 import { RoleType } from '../types/types';
+import { otherColors } from '../CustomThemeProvider';
 
 const { VITE_APP_ORGANIZATION_NAME_LONG: ORGANIZATION_NAME_LONG } = import.meta.env;
 if (ORGANIZATION_NAME_LONG == null) {
@@ -19,6 +20,7 @@ interface PageContainerProps {
 }
 
 export default function PageContainer({ sidebarItems, tabTitle, title, children }: PageContainerProps): ReactElement {
+  const theme = useTheme();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const role = useUserRole();
 
@@ -39,7 +41,7 @@ export default function PageContainer({ sidebarItems, tabTitle, title, children 
         Environment: {import.meta.env.VITE_APP_ENV}, Version: {import.meta.env.VITE_APP_VERSION}
         {(role! === RoleType.Manager || role === RoleType.Administrator) && (
           <Tooltip title="Please remember this is not fully tested :)">
-            <Link to="/data" style={{ verticalAlign: 'middle' }}>
+            <Link to="/data" style={{ verticalAlign: 'middle', color: theme.palette.primary.main }}>
               <Assessment />
             </Link>
           </Tooltip>

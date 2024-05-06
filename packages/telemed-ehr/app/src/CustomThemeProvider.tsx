@@ -4,19 +4,19 @@ import { TypographyOptions } from '@mui/material/styles/createTypography';
 
 const palette = {
   background: {
-    default: '#F9FAFB',
+    default: '#F7F7F7',
     paper: '#FFFFFF',
   },
   primary: {
-    main: '#4AC0F2',
-    light: '#4AC0F2',
-    dark: '#3B98BF',
+    main: '#a85e8a',
+    light: '#f7f0f4',
+    dark: '#542F45',
     contrast: '#FFFFFF',
   },
   secondary: {
-    main: '#4294F3',
-    light: '#0000009A',
-    dark: '#377DCE',
+    main: '#542F45',
+    light: '#542f45',
+    dark: '#542f45',
     contrast: '#FFFFFF',
   },
   error: {
@@ -46,7 +46,7 @@ const palette = {
 };
 
 export const otherColors = {
-  headerBackground: '#202A3E',
+  headerBackground: '#FFFFFF',
   footerBackground: '#202A3E',
   disabled: 'rgba(0,0,0,0.38)',
   tableRow: 'rgba(0,0,0,0.87)',
@@ -54,8 +54,8 @@ export const otherColors = {
   focusRingColor: '#005FCC',
   dottedLine: '#BFC2C6',
   solidLine: '#DFE5E9',
-  orange700: '#F57C00',
-  orange100: '#FFE0B2',
+  orange700: '#237BB4',
+  orange100: '#9fd6f9',
   locationGeneralBlue: '#CFF5FF',
   insuranceChip: '#43A047',
   consentChip: '#1E88E5',
@@ -71,12 +71,21 @@ export const otherColors = {
   priorityHighText: '#E53935',
   priorityHighIcon: '#F44336',
   endCallButton: '#EB5757',
-  lightIconButton: '#EDE8FF',
+  lightIconButton: '#f7f0f4',
   zapEHRBlue: '#1BCDFF',
 };
 
-const textFonts = ['Work Sans'];
-const headerFonts = ['Work Sans'];
+const textFonts = ['Metropolis', 'Arial'];
+const headerFonts = ['Metropolis', 'Arial'];
+
+export const otherTypography = {
+  navbarItem: {
+    fontSize: 16,
+    fontWeight: 600,
+    textTransform: 'capitalize',
+    color: '#393939',
+  },
+};
 
 const typography: TypographyOptions = {
   fontFamily: textFonts.join(','),
