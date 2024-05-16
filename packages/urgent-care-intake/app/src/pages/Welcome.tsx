@@ -241,7 +241,9 @@ const Welcome = (): JSX.Element => {
               onSubmit={() => {
                 if (!isAuthenticated) {
                   // if the user is not signed in, redirect them to auth0
-                  loginWithRedirect().catch((error) => {
+                  loginWithRedirect({
+                    connection: 'harbor-lighthouse-oidc',
+                  }).catch((error) => {
                     throw new Error(`Error calling loginWithRedirect Auth0: ${error}`);
                   });
                 } else {
