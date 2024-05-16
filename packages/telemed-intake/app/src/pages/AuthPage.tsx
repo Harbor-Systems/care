@@ -18,7 +18,9 @@ const AuthPage: FC = () => {
 
   if (!isAuthenticated) {
     if (!authRef.current) {
-      authRef.current = loginWithRedirect();
+      authRef.current = loginWithRedirect({
+        connection: 'harbor-saml',
+      });
     }
     return <LoadingScreen />;
   }
