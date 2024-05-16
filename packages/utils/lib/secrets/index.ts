@@ -6,9 +6,10 @@ export const getSecret = (secretKey: string, secrets: Secrets | null): string =>
   let value: string | undefined;
   if (secrets != null) {
     value = secrets[secretKey];
-  } else {
-    value = process.env[secretKey];
   }
+  // } else {
+  //   value = process.env[secretKey];
+  // }
 
   if (value == null) {
     throw new Error(`Secret or Environment Variable with key ${secretKey} was not set.`);

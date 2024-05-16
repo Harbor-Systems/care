@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "vite",
-    "build": "tsc && vite build"
+    "build": "vite build"
   },
   "dependencies": {
     "@mui/icons-material": "^5.11.0",

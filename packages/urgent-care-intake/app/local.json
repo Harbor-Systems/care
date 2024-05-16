@@ -1,0 +1,25 @@
+{
+    "WEBSITE_URL": "http://care.harbor.systems",
+    "AUTH0_ENDPOINT": "https://auth.zapehr.com/oauth/token",
+    "TELEMED_CLIENT_ID": "LjiPQ1OZj8zGttQvwBYDAI6ChTolCuO0",
+    "TELEMED_CLIENT_SECRET": "ehTwzaGJCix6phyTpk8o50w4t2JgGD2eeIY_Z98p-2LBR4xtA8UjbyFPS0M0m62b",
+    "AUTH0_AUDIENCE": "https://api.zapehr.com",
+    "FHIR_API": "https://fhir-api.zapehr.com/r4",
+    "PROJECT_API": "https://project-api.zapehr.com/v1",
+    "ENVIRONMENT": "local",
+    "TELEMED_MESSAGING_DEVICE_ID": "dd422d2b-13fe-47b3-b82c-ae7d2822de53",
+    "SENDGRID_API_KEY": "",
+    "TELEMED_SENDGRID_EMAIL_BCC": "",
+    "TELEMED_SENDGRID_CONFIRMATION_EMAIL_TEMPLATE_ID": "",
+    "TELEMED_SENDGRID_CANCELLATION_EMAIL_TEMPLATE_ID": "",
+    "TELEMED_SENDGRID_ERROR_EMAIL_TEMPLATE_ID": "",
+    "ORGANIZATION_ID": "415604bb-f7e5-476c-8f9a-c912a40655d2",
+    "MESSAGING_M2M_CLIENT": "LjiPQ1OZj8zGttQvwBYDAI6ChTolCuO0",
+    "MESSAGING_M2M_SECRET": "ehTwzaGJCix6phyTpk8o50w4t2JgGD2eeIY_Z98p-2LBR4xtA8UjbyFPS0M0m62b"
+  }
+  
+  
+  
+  
+  
+  
