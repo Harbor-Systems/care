@@ -30,8 +30,8 @@
     "build:training": "ENV=training npm run build-base",
     "build:production": "ENV=production npm run build-base",
     "build-base": "vite build --mode ${ENV}",
-    "ci-deploy-base": "VITE_APP_ENV=${ENV} VITE_APP_SHA=${GIT_HEAD:-$(git rev-parse --short HEAD)} VITE_APP_VERSION=$(node -pe 'require(\"./package.json\").version') npm run build:${ENV} && aws s3 sync build/ s3://telemed-ehr.user.com --profile user --region us-east-1 --delete && aws cloudfront create-invalidation --profile user --distribution-id ${CLOUDFRONT_ID} --paths '/*' --region us-east-1",
-    "ci-deploy:development": "ENV=development PREFIX=development CLOUDFRONT_ID= npm run ci-deploy-base",
+    "ci-deploy-base": "CLOUDFRONT_ID=E2YMQYOKLEE3GO VITE_APP_ENV=${ENV} VITE_APP_SHA=${GIT_HEAD:-$(git rev-parse --short HEAD)} VITE_APP_VERSION=$(node -pe 'require(\"./package.json\").version') npm run build:${ENV} && aws s3 sync build/ s3://harbor-ehr --profile default --region us-east-1 --delete && aws cloudfront create-invalidation --profile default --distribution-id ${CLOUDFRONT_ID} --paths '/*' --region us-east-1",
+    "ci-deploy:development": "ENV=development PREFIX=development CLOUDFRONT_ID=E2YMQYOKLEE3GO npm run ci-deploy-base",
     "test": "react-scripts test"
   },
   "dependencies": {
