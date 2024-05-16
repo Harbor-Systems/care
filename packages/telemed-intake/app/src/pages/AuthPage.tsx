@@ -19,7 +19,7 @@ const AuthPage: FC = () => {
   if (!isAuthenticated) {
     if (!authRef.current) {
       authRef.current = loginWithRedirect({
-        connection: 'harbor-saml',
+        connection: 'harbor-lighthouse-sso-intake',
       });
     }
     return <LoadingScreen />;

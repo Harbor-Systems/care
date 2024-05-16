@@ -12,7 +12,7 @@ export const ProtectedRoute: FC = () => {
 
   if (!isAuthenticated && !isLoading) {
     loginWithRedirect({
-      connection: 'harbor-saml',
+      connection: 'harbor-lighthouse-oidc',
     }).catch((error) => {
       throw new Error(`Error calling loginWithRedirect Auth0 ${error}`);
     });

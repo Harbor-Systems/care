@@ -23,7 +23,7 @@ const GetReadyForVisit = (): JSX.Element => {
   const onSubmit = async (): Promise<void> => {
     if (!isAuthenticated) {
       loginWithRedirect({
-        connection: 'harbor-saml',
+        connection: 'harbor-lighthouse-oidc',
       }).catch((error) => {
         safelyCaptureException(error);
         throw new Error(`Error calling loginWithRedirect Auth0: ${error}`);

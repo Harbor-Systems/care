@@ -242,7 +242,7 @@ const Welcome = (): JSX.Element => {
                 if (!isAuthenticated) {
                   // if the user is not signed in, redirect them to auth0
                   loginWithRedirect({
-                    connection: 'harbor-saml',
+                    connection: 'harbor-lighthouse-oidc',
                   }).catch((error) => {
                     throw new Error(`Error calling loginWithRedirect Auth0: ${error}`);
                   });
