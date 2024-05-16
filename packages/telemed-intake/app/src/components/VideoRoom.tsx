@@ -68,7 +68,7 @@ export const VideoRoom: FC = () => {
       <Box key="video-room" sx={{ display: 'flex', flexDirection: 'column', borderRadius: '8px', overflow: 'hidden' }}>
         <Box
           sx={{
-            backgroundColor: '#1A093B',
+            backgroundColor: '#542F45',
             height: '600px',
             color: 'white',
           }}

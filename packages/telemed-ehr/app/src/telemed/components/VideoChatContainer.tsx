@@ -62,7 +62,7 @@ export const VideoChatContainer: FC = () => {
 
   return (
     <Container sx={{ mt: 3 }}>
-      <Card sx={{ backgroundColor: '#1A093B', borderRadius: '8px' }}>
+      <Card sx={{ backgroundColor: '#542F45', borderRadius: '8px' }}>
         <VideoRoom participants={participants} setParticipants={setParticipants} />
       </Card>
     </Container>

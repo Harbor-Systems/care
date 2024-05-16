@@ -33,13 +33,14 @@ const Footer: FC = () => {
         sx={{
           width: '100%',
           backgroundColor: 'secondary.main',
+          color: 'primary.contrast',
           bottom: 0,
         }}
         display="flex"
         justifyContent="center"
         alignItems="center"
       >
-        <ErrorOutlineIcon color="warning" sx={{ pl: 1.25 }} />
+        <ErrorOutlineIcon color="inherit" sx={{ pl: 1.25 }} />
         <Typography variant="body2" color={otherColors.white} sx={{ m: 1.25, maxWidth: 850 }}>
           {t('general.footer')}
         </Typography>
