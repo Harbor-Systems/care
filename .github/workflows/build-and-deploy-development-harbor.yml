@@ -19,9 +19,6 @@ on:
         description: 'Deploy ehr (care) zambda'
         default: true
         type: boolean
-  push:
-    branches:
-      - development
 
 jobs:
   deploy:
