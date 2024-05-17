@@ -2,6 +2,8 @@ name: Deploy development with options Harbor
 
 on:
   workflow_dispatch:
+    branches:
+      - main
     inputs:
       deploy-ehr-app:
         description: 'Deploy ehr (careteam) app'
