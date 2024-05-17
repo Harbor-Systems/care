@@ -1,4 +1,4 @@
-name: Deploy development Harbor
+name: Deploy development with options Harbor
 
 on:
   workflow_dispatch:
