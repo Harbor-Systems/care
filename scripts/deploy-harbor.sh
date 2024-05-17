@@ -28,7 +28,7 @@ popd
 
 # Build the telemed-ehr/zambdas
 echo "Building package: packages/telemed-ehr/zambdas"
-pushd "packages/telemed-ehr/zambdas"
+yes | pushd "packages/telemed-ehr/zambdas"
 pnpm deploy-zambdas development
 popd
 
@@ -41,7 +41,7 @@ popd
 # Build the telemed-intage/zambdas
 echo "Building package: telemed-intake/zambdas"
 pushd "packages/telemed-intake/zambdas"
-pnpm deploy-zambdas development
+yes | pnpm deploy-zambdas development
 popd
 
 echo "Deploy script finished successfully."
