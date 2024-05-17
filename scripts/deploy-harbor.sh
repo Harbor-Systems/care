@@ -28,8 +28,8 @@ popd
 
 # Build the telemed-ehr/zambdas
 echo "Building package: packages/telemed-ehr/zambdas"
-yes | pushd "packages/telemed-ehr/zambdas"
-pnpm deploy-zambdas development
+pushd "packages/telemed-ehr/zambdas"
+yes | pnpm deploy-zambdas development
 popd
 
 # Build the telemed-intake/app
