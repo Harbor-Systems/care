@@ -2,6 +2,23 @@ name: Deploy development Harbor
 
 on:
   workflow_dispatch:
+    inputs:
+      deploy-ehr-app:
+        description: 'Deploy ehr (careteam) app'
+        default: true
+        type: boolean
+      deploy-ehr-zambda:
+        description: 'Deploy ehr (careteam) zambda'
+        default: true
+        type: boolean
+      deploy-care-intake-app:
+        description: 'Deploy ehr (care) app'
+        default: true
+        type: boolean
+      deploy-care-intake-zambda:
+        description: 'Deploy ehr (care) zambda'
+        default: true
+        type: boolean
   push:
     branches:
       - development
@@ -54,6 +71,12 @@ jobs:
           echo ${{ secrets.INTAKE_ZAMBDAS_DEVELOPMENT }} | base64 --decode > packages/telemed-intake/zambdas/.env/local.json
 
 
+
       - name: Run deploy harbor 
         shell: bash
+        env:
+          DEPLOY_EHR_APP: ${{ github.event.inputs.deploy-ehr-app }}
+          DEPLOY_EHR_ZAMBDA: ${{ github.event.inputs.deploy-ehr-zambda }}
+          DEPLOY_CARE_INTAKE_APP: ${{ github.event.inputs.deploy-care-intake-app }}
+          DEPLOY_CARE_INTAKE_ZAMBDA: ${{ github.event.inputs.deploy-care-intake-zambda }}
         run: ./scripts/deploy-harbor.sh
