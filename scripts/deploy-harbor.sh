@@ -39,8 +39,8 @@ pnpm ci-deploy:development
 popd
 
 # Build the telemed-intage/zambdas
-echo "Building package: telemed-intake/app"
-pushd "packages/telemed-intake/app"
+echo "Building package: telemed-intake/zambdas"
+pushd "packages/telemed-intake/zambdas"
 pnpm deploy-zambdas development
 popd
 
