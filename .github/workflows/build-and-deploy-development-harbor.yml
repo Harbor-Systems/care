@@ -2,6 +2,9 @@ name: Deploy development Harbor
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - development
 
 jobs:
   deploy:
