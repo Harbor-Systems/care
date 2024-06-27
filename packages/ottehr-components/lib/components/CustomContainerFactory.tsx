@@ -1,7 +1,6 @@
-import { FC, ReactElement, useCallback, useContext } from 'react';
+import { FC, ReactElement, useCallback } from 'react';
 import { AppBar, Box, Button, Card, Container, Grid, Typography, useTheme } from '@mui/material';
 import { useAuth0 } from '@auth0/auth0-react';
-import { IntakeThemeContext } from '../contexts';
 
 export interface ContainerProps {
   title: string;
@@ -67,7 +66,6 @@ export const CustomContainer: FC<ContainerProps> = ({
 }) => {
   const theme = useTheme();
   const { isAuthenticated, logout } = useAuth0();
-  const { otherColors } = useContext(IntakeThemeContext);
 
   const handleLogout = useCallback(() => {
     if (logoutHandler !== undefined) {
@@ -94,7 +92,7 @@ export const CustomContainer: FC<ContainerProps> = ({
         justifyContent: 'space-between',
       }}
     >
-      <AppBar position="static" sx={{ backgroundColor: otherColors.appbarBackground }}>
+      <AppBar position="static">
         <Grid container justifyContent="space-between">
           <Grid item></Grid>
           <Grid

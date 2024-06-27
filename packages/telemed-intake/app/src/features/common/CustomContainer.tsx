@@ -1,20 +1,21 @@
 import { CustomContainerFactory } from 'ottehr-components';
 import { IntakeFlowPageRoute } from '../../App';
-import { bg1, ottehrLogo } from '../../assets';
+import bg from '@assets/bg1.png';
+import logo from '@assets/Logo.svg';
 import Footer from '../../components/Footer';
 
 const imageForBackground = (page: string): string => {
   switch (page) {
     case IntakeFlowPageRoute.Homepage.path:
-      return bg1;
+      return bg;
     default:
-      return bg1;
+      return bg;
   }
 };
 
 export const CustomContainer = CustomContainerFactory(
   imageForBackground,
-  ottehrLogo,
+  logo,
   'Ottehr Telemedicine',
   <Footer />,
 );
