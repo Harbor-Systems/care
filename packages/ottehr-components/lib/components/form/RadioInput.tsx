@@ -12,10 +12,10 @@ import {
 import { FC, SyntheticEvent } from 'react';
 import { Controller, FieldValues, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { customRadioButtonCheckedIcon, customRadioButtonUncheckedIcon } from '../../assets';
 import { RadioOption, RadioStyling } from '../../types';
 import { BoldPurpleInputLabel } from './BoldPurpleInputLabel';
 import { InputHelperText } from './InputHelperText';
+import CustomRadioButtonIcon from './CustomRadioButtonIcon';
 
 type RadioInputProps = {
   name: string;
@@ -107,12 +107,18 @@ const RadioInput: FC<RadioInputProps> = ({
                       <Radio
                         icon={
                           <Icon sx={{ display: 'flex', justifyContent: 'center', scale: '75%' }}>
-                            <img src={customRadioButtonUncheckedIcon} alt={t('general.button.unchecked')} />
+                            <CustomRadioButtonIcon
+                              color={theme.palette.secondary.contrastText}
+                              alt={t('general.button.unchecked')}
+                            />
                           </Icon>
                         }
                         checkedIcon={
                           <Icon sx={{ display: 'flex', justifyContent: 'center', scale: '75%' }}>
-                            <img src={customRadioButtonCheckedIcon} alt={t('general.button.checked')} />
+                            <CustomRadioButtonIcon
+                              color={theme.palette.secondary.main}
+                              alt={t('general.button.checked')}
+                            />
                           </Icon>
                         }
                         sx={{
