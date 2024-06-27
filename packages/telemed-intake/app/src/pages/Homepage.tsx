@@ -1,5 +1,6 @@
 import { Skeleton, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { IntakeFlowPageRoute } from '../App';
 import { otherColors } from '../IntakeThemeProvider';
 import { useGetAppointments } from '../features/appointments';
@@ -11,6 +12,7 @@ import { requestVisit, pastVisits, contactSupport } from '../assets/icons';
 const Homepage = (): JSX.Element => {
   const apiClient = useZapEHRAPIClient();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const { data: appointmentsData, isFetching } = useGetAppointments(apiClient, Boolean(apiClient));
 
@@ -42,7 +44,7 @@ const Homepage = (): JSX.Element => {
 
   return (
     <CustomContainer
-      title="Welcome to Ottehr Telemedicine"
+      title={t('telemedicine.welcome.title')}
       description=""
       bgVariant={IntakeFlowPageRoute.Homepage.path}
       isFirstPage={true}
@@ -94,7 +96,7 @@ const Homepage = (): JSX.Element => {
           />
         </>
       )}
-      <HomepageOption title="Contact Support" icon={contactSupport} handleClick={handleContactSupport} />
+      <HomepageOption title="Contact Support" icon={contactSupport} handleClick={handleContactSupport} className="CustomerSupportFeature"/>
     </CustomContainer>
   );
 };
