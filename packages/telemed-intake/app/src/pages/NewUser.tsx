@@ -1,5 +1,6 @@
 import { Typography } from '@mui/material';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { PageForm } from 'ottehr-components';
 import { IntakeFlowPageRoute } from '../App';
@@ -9,6 +10,7 @@ import { CustomContainer } from '../features/common';
 
 const NewUser = (): JSX.Element => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     //mixpanel.track('New User');
@@ -20,7 +22,7 @@ const NewUser = (): JSX.Element => {
 
   return (
     <CustomContainer
-      title="Thanks for choosing Ottehr!"
+      title={t('newUser.title')}
       img={clockFullColor}
       imgAlt="Clock icon"
       imgWidth={100}

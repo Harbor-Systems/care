@@ -3,6 +3,7 @@ import { Box } from '@mui/system';
 import { DateTime } from 'luxon';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { IntakeFlowPageRoute } from '../App';
 import { clockFullColor } from '../assets/icons';
 import { useAppointmentStore, useGetSchedule } from '../features/appointments';
@@ -25,6 +26,7 @@ const Welcome = (): JSX.Element => {
   const { 'schedule-type': scheduleType, slug, 'visit-type': visitType, 'visit-service': visitService } = parameters;
   const [choiceErrorDialogOpen, setChoiceErrorDialogOpen] = useState(false);
   const { selectedSlot, setAppointment } = useAppointmentStore((state) => state);
+  const { t } = useTranslation();
 
   if (!slug) {
     throw new Error('slug is not defined');
@@ -56,7 +58,7 @@ const Welcome = (): JSX.Element => {
 
   return (
     <CustomContainer
-      title={`Ottehr ${visitService}`}
+      title={`${t('serviceName')} ${visitService}`}
       subtitle={isFetching ? 'Loading...' : schedule?.name}
       img={clockFullColor}
       imgAlt="Clock icon"
