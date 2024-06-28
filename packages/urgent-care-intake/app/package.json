@@ -10,7 +10,7 @@
     "build": "pnpm run build:local",
     "build:local": "ENV=default ROBOTS_FILE=lowers pnpm run build-help",
     "build:dev": "ENV=dev ROBOTS_FILE=lowers pnpm run build-help",
-    "build-help": "tsc && vite build --mode ${ENV} && cp src/assets/robots-${ROBOTS_FILE}.txt build/robots.txt",
+    "build-help": "vite build --mode ${ENV} && cp src/assets/robots-${ROBOTS_FILE}.txt build/robots.txt",
     "deploy": "PREFIX=dev npm run deploy ENV=${ENV}",
     "deploy-help": "VITE_APP_ENV=${ENV} VITE_APP_SHA=$(git rev-parse --short HEAD) VITE_APP_VERSION=$(node -pe 'require(\"./package.json\").version') npm run build:${ENV} && aws s3 sync build/ s3://patient.ottehr.com --profile ottehr --delete && aws cloudfront create-invalidation --distribution-id ${CLOUDFRONT_ID} --paths '/*' --profile ottehr --region us-east-1",
     "lint": "eslint",
@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@mui/icons-material": "^5.14.10",
-    "@zapehr/sdk": "1.0.15",
+    "@zapehr/sdk": "1.0.16",
     "ottehr-components": "*",
     "ottehr-utils": "*",
     "react-markdown": "^9.0.0",
