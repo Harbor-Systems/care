@@ -1,0 +1,11 @@
+{
+  "serviceName": "Harbor",
+  "telemedicine": {
+    "welcome" : {
+      "title": "Welcome to Harbor Telemedicine"
+    }
+  },
+  "newUser": {
+    "title": "Thanks for choosing Harbor!"
+  }
+}

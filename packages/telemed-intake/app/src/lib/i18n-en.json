@@ -1,4 +1,5 @@
 {
+  "serviceName": "Ottehr",
   "general": {
     "button": {
       "book": "Book an appointment",
@@ -120,5 +121,8 @@
     "subtitle": "Online Scheduling",
     "support": "We are here to support you and your family.",
     "availability": "Please, enter your mobile phone number. We'll verify if we have your information already. If we do, we'll pre-fill your past information for a faster booking."
+  },
+  "newUser": {
+    "title": "Thanks for choosing Ottehr!"
   }
 }
