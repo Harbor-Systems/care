@@ -35,7 +35,7 @@ popd
 fi
 
 # Build the telemed-ehr/zambdas
-if [ "$DEPLOY_EHR_APP" = "true" ]; then
+if [ "$DEPLOY_EHR_ZAMBDA" = "true" ]; then
 echo "Building package: packages/telemed-ehr/zambdas"
 pushd "packages/telemed-ehr/zambdas"
 yes | pnpm deploy-zambdas development
@@ -43,7 +43,7 @@ popd
 fi
 
 # Build the telemed-intake/app
-if [ "$DEPLOY_EHR_APP" = "true" ]; then
+if [ "$DEPLOY_CARE_INTAKE_APP" = "true" ]; then
 echo "Building package: telemed-intake/app"
 pushd "packages/telemed-intake/app"
 pnpm ci-deploy:development
@@ -51,7 +51,7 @@ popd
 fi
 
 # Build the telemed-intage/zambdas
-if [ "$DEPLOY_EHR_APP" = "true" ]; then
+if [ "$DEPLOY_CARE_INTAKE_ZAMBDA" = "true" ]; then
 echo "Building package: telemed-intake/zambdas"
 pushd "packages/telemed-intake/zambdas"
 yes | pnpm deploy-zambdas dev
