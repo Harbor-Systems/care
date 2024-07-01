@@ -45,8 +45,9 @@ jobs:
           aws configure set region us-east-1 --profile default
 
       - uses: actions/checkout@v3
-        with:
-          ref: development
+        # TODO: we need to define which branch to deploy here!
+        # with:
+        #   ref: development
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
