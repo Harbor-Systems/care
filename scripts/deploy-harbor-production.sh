@@ -23,7 +23,7 @@ echo "pnpm version: $(pnpm --version)"
 
 # Install dependencies
 echo "Installing dependencies..."
-pnpm install
+pnpm install --no-frozen-lockfile
 
 
 # Build the telemed-ehr/app
