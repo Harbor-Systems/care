@@ -62,10 +62,10 @@ jobs:
         run: |
           echo ${{ secrets.EHR_APP_PRODUCTION }} | base64 --decode > packages/telemed-ehr/app/env/.env.development
           echo ${{ secrets.EHR_ZAMBDAS_PRODUCTION }} | base64 --decode > packages/telemed-ehr/zambdas/.env/development.json
-          echo ${{ secrets.EHR_ZAMBDAS_PRODUCTION }} | base64 --decode > packages/telemed-ehr/zambdas/.env/local.json
+          echo ${{ secrets.EHR_ZAMBDAS_PRODUCTION }} | base64 --decode > packages/telemed-ehr/zambdas/.env/dev.json
           echo ${{ secrets.INTAKE_APP_PRODUCTION }} | base64 --decode > packages/telemed-intake/app/env/.env.development
           echo ${{ secrets.INTAKE_ZAMBDAS_PRODUCTION }} | base64 --decode > packages/telemed-intake/zambdas/.env/development.json
-          echo ${{ secrets.INTAKE_ZAMBDAS_PRODUCTION }} | base64 --decode > packages/telemed-intake/zambdas/.env/local.json
+          echo ${{ secrets.INTAKE_ZAMBDAS_PRODUCTION }} | base64 --decode > packages/telemed-intake/zambdas/.env/dev.json
 
 
 
