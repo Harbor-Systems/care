@@ -38,7 +38,7 @@ fi
 if [ "$DEPLOY_EHR_ZAMBDA" = "true" ]; then
 echo "Building package: packages/telemed-ehr/zambdas"
 pushd "packages/telemed-ehr/zambdas"
-yes | pnpm deploy-zambdas development
+pnpm deploy-zambdas development
 popd
 fi
 
@@ -54,7 +54,7 @@ fi
 if [ "$DEPLOY_CARE_INTAKE_ZAMBDA" = "true" ]; then
 echo "Building package: telemed-intake/zambdas"
 pushd "packages/telemed-intake/zambdas"
-yes | pnpm deploy-zambdas dev
+pnpm deploy-zambdas dev
 popd
 fi
 
