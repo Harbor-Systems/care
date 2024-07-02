@@ -9,7 +9,7 @@ on:
         type: boolean
       deploy-ehr-zambda:
         description: 'Deploy ehr (careteam) zambda'
-        default: true
+        default: false
         type: boolean
       deploy-care-intake-app:
         description: 'Deploy ehr (care) app'
@@ -17,7 +17,7 @@ on:
         type: boolean
       deploy-care-intake-zambda:
         description: 'Deploy ehr (care) zambda'
-        default: true
+        default: false
         type: boolean
 
 jobs:
