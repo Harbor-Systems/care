@@ -45,6 +45,7 @@ fi
 # Build the telemed-intake/app
 if [ "$DEPLOY_CARE_INTAKE_APP" = "true" ]; then
 echo "Building package: telemed-intake/app"
+cat packages/telemed-intake/app/env/.env.development # Debug line, delete later
 pushd "packages/telemed-intake/app"
 pnpm ci-deploy:development
 popd
