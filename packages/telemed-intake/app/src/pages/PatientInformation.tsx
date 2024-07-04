@@ -19,8 +19,10 @@ import { useFilesStore } from '../features/files';
 import { useGetPaperwork, usePaperworkStore } from '../features/paperwork';
 import { usePatientInfoStore } from '../features/patient-info';
 import { MAXIMUM_AGE, MINIMUM_AGE, useZapEHRAPIClient } from '../utils';
+import { useTranslation } from 'react-i18next';
 
 const PatientInformation = (): JSX.Element => {
+  const { t } = useTranslation();
   const apiClient = useZapEHRAPIClient();
   const [getPaperworkEnabled, setGetPaperworkEnabled] = useState(false);
   const createAppointment = useCreateAppointmentMutation();
@@ -104,8 +106,8 @@ const PatientInformation = (): JSX.Element => {
 
   return (
     <CustomContainer
-      title="About the patient"
-      description="We use this information to ensure we're able to provide you with care. All information is kept confidential."
+      title={t('patientInfo.title')}
+      description={t('patientInfo.description')}
       bgVariant={IntakeFlowPageRoute.PatientInformation.path}
     >
       {!patientInfo.newPatient && (
@@ -130,7 +132,7 @@ const PatientInformation = (): JSX.Element => {
           {
             type: 'Text',
             name: 'firstName',
-            label: "Patient's legal first name",
+            label: t('patientInfo.formElement.labels.firstName'),
             placeholder: 'First name',
             defaultValue: patientInfo.firstName,
             required: patientInfo.newPatient,
@@ -140,7 +142,7 @@ const PatientInformation = (): JSX.Element => {
           {
             type: 'Text',
             name: 'lastName',
-            label: "Patient's legal last name",
+            label: t('patientInfo.formElement.labels.lastName'),
             placeholder: 'Last name',
             defaultValue: patientInfo.lastName,
             required: patientInfo.newPatient,
@@ -150,7 +152,7 @@ const PatientInformation = (): JSX.Element => {
           {
             type: 'Date',
             name: 'dateOfBirth',
-            label: "Patient's date of birth",
+            label: t('patientInfo.formElement.labels.dateOfBirth'),
             defaultValue: patientInfo.dateOfBirth,
             required: patientInfo.newPatient,
             hidden: !patientInfo.newPatient,
@@ -158,7 +160,7 @@ const PatientInformation = (): JSX.Element => {
           {
             type: 'Select',
             name: 'sex',
-            label: "Patient's birth sex",
+            label: t('patientInfo.formElement.labels.sex'),
             defaultValue: patientInfo.sex,
             required: true,
             infoTextSecondary:

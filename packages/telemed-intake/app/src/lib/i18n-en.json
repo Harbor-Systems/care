@@ -97,6 +97,16 @@
     "zip": "ZIP"
   },
   "patientInfo": {
+    "title": "About the patient",
+    "description": "We use this information to ensure we're able to provide you with care. All information is kept confidential.",
+    "formElement": {
+      "labels": {
+        "firstName": "Patient's legal first name",
+        "lastName": "Patient's legal last name",
+        "dateOfBirth": "Patient's date of birth",
+        "sex": "Patient's birth sex"
+      }
+    },
     "errors": {
       "": {
         "title": "Age not in range",
@@ -118,11 +128,17 @@
   },
   "welcome": {
     "title": "Welcome to Ottehr Urgent Care",
+    "body": "We're pleased to offer this new technology for accessing care. You will need to enter your information again just once. Next time you return, it will all be here for you!",
+    "html": "",
     "subtitle": "Online Scheduling",
     "support": "We are here to support you and your family.",
     "availability": "Please, enter your mobile phone number. We'll verify if we have your information already. If we do, we'll pre-fill your past information for a faster booking."
   },
   "newUser": {
     "title": "Thanks for choosing Ottehr!"
+  },
+  "waitingRoom": {
+    "title": "Waiting Room",
+    "subtext": "Please wait, call will start automatically. A pediatric expert will connect with you soon."
   }
 }

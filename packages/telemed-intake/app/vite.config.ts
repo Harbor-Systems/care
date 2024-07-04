@@ -53,7 +53,7 @@ export default (env) => {
         sourcemap: mode === 'default' || shouldUploadSentrySourceMaps,
       },
       server: {
-        open: 'location/ak/in-person/prebook',
+        open: 'location/night-nanny/in-person/prebook',
       },
       plugins,
     })

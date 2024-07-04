@@ -58,10 +58,10 @@ const Welcome = (): JSX.Element => {
 
   return (
     <CustomContainer
-      title={`${t('serviceName')} ${visitService}`}
+      title={t('welcome.title')}
       subtitle={isFetching ? 'Loading...' : schedule?.name}
-      img={clockFullColor}
-      imgAlt="Clock icon"
+      // img={clockFullColor}
+      // imgAlt="Clock icon"
       imgWidth={120}
       bgVariant={IntakeFlowPageRoute.NewUser.path}
       isFirstPage={true}
@@ -83,11 +83,8 @@ const Welcome = (): JSX.Element => {
       )}
       {!isFetching && schedule && schedule.available && ['in-person', 'telemedicine'].includes(visitService || '') && (
         <>
-          <Typography variant="body1">
-            We&apos;re pleased to offer this new technology for accessing care. You will need to enter your information
-            again just once. Next time you return, it will all be here for you!
-          </Typography>
-
+          <Typography variant="body1">{t('welcome.body')}</Typography>
+          <div dangerouslySetInnerHTML={{ __html: t('welcome.html') }} />
           {visitType === 'prebook' && <Schedule slotData={schedule.availableSlots} timezone={'America/New_York'} />}
           <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
             <Button

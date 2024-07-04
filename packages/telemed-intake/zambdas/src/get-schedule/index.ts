@@ -341,7 +341,7 @@ export const distributeTimeSlots = (
   currentAppointments: Appointment[],
 ): string[] => {
   // console.log(1, startTime, capacity, openingTime, closingTime);
-  const ROUND_MINUTES = 15;
+  const ROUND_MINUTES = 60;
 
   // const minutesToDistributeInHour = Math.min(
   //   60,

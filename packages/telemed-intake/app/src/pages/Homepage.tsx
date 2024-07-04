@@ -44,7 +44,7 @@ const Homepage = (): JSX.Element => {
 
   return (
     <CustomContainer
-      title={t('telemedicine.welcome.title')}
+      title={t('welcome.title')}
       description=""
       bgVariant={IntakeFlowPageRoute.Homepage.path}
       isFirstPage={true}

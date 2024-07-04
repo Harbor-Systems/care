@@ -1,11 +1,48 @@
 {
   "serviceName": "Harbor",
-  "telemedicine": {
-    "welcome" : {
-      "title": "Welcome to Harbor Telemedicine"
-    }
+  "welcome" : {
+    "title": "Harbor",
+    "body": "Your free extended trial to Harbor's Remote Night Nanny is based on Harbor's availability, your family's eligibility, and is on a first come first serve basis. Free extended trial must be redeemed prior to October 1st, 2024.",
+    "html": "<div style=\"padding:56.25% 0 0 0;position:relative;margin:15px 0 0\"><iframe src=\"https://player.vimeo.com/video/913424910?h=dfa236ec46&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479\" frameborder=\"0\" allow=\"autoplay; fullscreen; picture-in-picture; clipboard-write\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" title=\"What is Harbor's Remote Night Nanny?\"></iframe></div><script src=\"https://player.vimeo.com/api/player.js\"></script>",
+    "subtitle": "Online Scheduling",
+    "support": "We are here to support you and your family.",
+    "availability": "Please, enter your mobile phone number. We'll verify if we have your information already. If we do, we'll pre-fill your past information for a faster booking."
   },
   "newUser": {
     "title": "Thanks for choosing Harbor!"
+  },
+  "patientInfo": {
+    "title": "About the child",
+    "description": "We use this information to ensure we're able to provide you with care. All information is kept confidential.",
+    "formElement": {
+      "labels": {
+        "firstName": "Child's legal first name",
+        "lastName": "Child's legal last name",
+        "dateOfBirth": "Child's date of birth",
+        "sex": "Child's birth sex"
+      }
+    },
+    "errors": {
+      "": {
+        "title": "Age not in range",
+        "description": "These services are only available for children between the ages of 0 and 26."
+      },
+      "validation": {
+        "firstName": "First name is required",
+        "lastName": "Last name is required",
+        "dateOfBirth": {
+          "format": "Date must be in the format MM/DD/YYYY",
+          "required": "Birth date is required"
+        },
+        "zip": {
+          "number": "Zip code must be 5 digits",
+          "required": "ZIP is required"
+        }
+      }
+    }
+  },
+  "waitingRoom": {
+    "title": "Congratulations",
+    "subtext": "You're one step closer to resting easy. Our care team will reach out to book a 30 minute consultation prior to your trial."
   }
 }

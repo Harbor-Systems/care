@@ -16,8 +16,10 @@ import { createIOSMesssageCallStarted, sendIOSAppMessage } from '../features/ios
 import { useIOSAppSync } from '../features/ios-communication/useIOSAppSync';
 import { UploadPhotosDialog, UploadPhotosListItemButton } from '../features/upload-photos';
 import { useGetWaitStatus, useWaitingRoomStore } from '../features/waiting-room';
+import { useTranslation } from 'react-i18next';
 
 const WaitingRoom = (): JSX.Element => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const theme = useTheme();
   const { otherColors } = useContext(IntakeThemeContext);
@@ -61,14 +63,14 @@ const WaitingRoom = (): JSX.Element => {
 
   return (
     <CustomContainer
-      title="Waiting room"
-      img={clockFullColor}
-      imgAlt="Clock icon"
-      imgWidth={80}
-      subtext="Please wait, call will start automatically. A pediatric expert will connect with you soon."
+      title={t('waitingRoom.title')}
+      // img={clockFullColor}
+      // imgAlt="Clock icon"
+      // imgWidth={80}
+      subtext={t('waitingRoom.subtext')}
       bgVariant={IntakeFlowPageRoute.WaitingRoom.path}
     >
-      <Box
+      {/* <Box
         sx={{
           backgroundColor: otherColors.lightBlue,
           color: theme.palette.secondary.main,
@@ -81,7 +83,7 @@ const WaitingRoom = (): JSX.Element => {
         <Typography variant="subtitle1" color={theme.palette.primary.main}>
           Approx. wait time - {estimatedTime ? Duration.fromMillis(estimatedTime).toFormat("mm'mins'") : '...mins'}
         </Typography>
-      </Box>
+      </Box> */}
 
       {isInvitedParticipant ? (
         <List sx={{ p: 0 }}>
@@ -95,9 +97,9 @@ const WaitingRoom = (): JSX.Element => {
         </List>
       ) : (
         <List sx={{ p: 0 }}>
-          <InvitedParticipantListItemButton onClick={() => setManageParticipantsDialogOpen(true)} hideText={false} />
+          {/* <InvitedParticipantListItemButton onClick={() => setManageParticipantsDialogOpen(true)} hideText={false} /> */}
 
-          <UploadPhotosListItemButton onClick={() => setUploadPhotosDialogOpen(true)} hideText={false} />
+          {/* <UploadPhotosListItemButton onClick={() => setUploadPhotosDialogOpen(true)} hideText={false} />
 
           <StyledListItemWithButton
             onClick={() => navigate('/home')}
@@ -105,16 +107,16 @@ const WaitingRoom = (): JSX.Element => {
             secondaryText="We will notify you once the call starts"
           >
             <img alt="Clock icon" src={clockFullColor} width={24} />
-          </StyledListItemWithButton>
+          </StyledListItemWithButton> */}
 
-          <StyledListItemWithButton
+          {/* <StyledListItemWithButton
             onClick={() => setCancelVisitDialogOpen(true)}
             primaryText="Cancel visit"
             secondaryText="You will not be charged if you cancel the visit"
             noDivider
           >
             <CancelOutlinedIcon sx={{ color: otherColors.clearImage }} />
-          </StyledListItemWithButton>
+          </StyledListItemWithButton> */}
         </List>
       )}
 
