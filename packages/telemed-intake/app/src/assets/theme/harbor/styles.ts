@@ -1,4 +1,3 @@
-import { style } from '@mui/system';
 import { otherColors } from './colors';
 
 export default {
