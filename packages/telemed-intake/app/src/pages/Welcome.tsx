@@ -83,7 +83,7 @@ const Welcome = (): JSX.Element => {
       )}
       {!isFetching && schedule && schedule.available && ['in-person', 'telemedicine'].includes(visitService || '') && (
         <>
-          <Typography variant="body1">{t('welcome.body')}</Typography>
+          <Typography variant="body1">{t('welcome.subtext')}</Typography>
           <div dangerouslySetInnerHTML={{ __html: t('welcome.html') }} />
           {visitType === 'prebook' && <Schedule slotData={schedule.availableSlots} timezone={'America/New_York'} />}
           <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>

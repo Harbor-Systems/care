@@ -2,14 +2,16 @@
   "serviceName": "Harbor",
   "welcome" : {
     "title": "Harbor",
-    "body": "Your free extended trial to Harbor's Remote Night Nanny is based on Harbor's availability, your family's eligibility, and is on a first come first serve basis. Free extended trial must be redeemed prior to October 1st, 2024.",
-    "html": "<div style=\"padding:56.25% 0 0 0;position:relative;margin:15px 0 0\"><iframe src=\"https://player.vimeo.com/video/913424910?h=dfa236ec46&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479\" frameborder=\"0\" allow=\"autoplay; fullscreen; picture-in-picture; clipboard-write\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" title=\"What is Harbor's Remote Night Nanny?\"></iframe></div><script src=\"https://player.vimeo.com/api/player.js\"></script>",
+    "subtext": "Your free extended trial to Harbor's Remote Night Nanny is based on Harbor's availability, your family's eligibility, and is on a first come first serve basis. Free extended trial must be redeemed prior to October 1st, 2024.",
+    "html": "",
     "subtitle": "Online Scheduling",
     "support": "We are here to support you and your family.",
     "availability": "Please, enter your mobile phone number. We'll verify if we have your information already. If we do, we'll pre-fill your past information for a faster booking."
   },
   "newUser": {
-    "title": "Thanks for choosing Harbor!"
+    "title": "Need a refresher on Harbor's Remote Night Nanny?",
+    "subtext": "We're pleased to offer this new technology for accessing care. You will need to enter your information again just once. Next time you return, it will all be here for you!",
+    "html": "<div style=\"padding:56.25% 0 0 0;position:relative;margin:15px 0 0\"><iframe src=\"https://player.vimeo.com/video/913424910?h=dfa236ec46&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479\" frameborder=\"0\" allow=\"autoplay; fullscreen; picture-in-picture; clipboard-write\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" title=\"What is Harbor's Remote Night Nanny?\"></iframe></div><script src=\"https://player.vimeo.com/api/player.js\"></script>"
   },
   "patientInfo": {
     "title": "About the child",
