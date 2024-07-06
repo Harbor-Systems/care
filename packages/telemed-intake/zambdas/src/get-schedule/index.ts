@@ -46,7 +46,7 @@ export interface GetScheduleInput {
 }
 
 let zapehrToken: string;
-const NUM_DAYS = 7;
+const NUM_DAYS = 90;
 export const index = async (input: ZambdaInput): Promise<APIGatewayProxyResult> => {
   try {
     const fhirAPI = getSecret(SecretsKeys.FHIR_API, input.secrets);
