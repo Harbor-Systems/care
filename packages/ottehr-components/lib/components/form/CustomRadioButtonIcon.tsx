@@ -7,7 +7,11 @@ type CustomRadioIconProps = {
   alt: string;
 };
 
-const CustomRadioButtonIcon: FC<CustomRadioIconProps> = ({ color, checked, alt }: CustomRadioIconProps): JSX.Element => (
+const CustomRadioButtonIcon: FC<CustomRadioIconProps> = ({
+  color,
+  checked,
+  alt,
+}: CustomRadioIconProps): JSX.Element => (
   <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label={alt}>
     <rect x="0.5" y="0.5" width="17" height="17" rx="8.5" fill="white" stroke={color.main} />
     <circle
