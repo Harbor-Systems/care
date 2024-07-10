@@ -43,4 +43,5 @@ export const otherColors = {
   appbarBackground: '#A85E8A',
   coachingVisit: '#DCBED1',
   lightBlue: '#F5F3F8',
+  brightPurple: '#00101B',
 };

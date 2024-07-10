@@ -108,7 +108,8 @@ const RadioInput: FC<RadioInputProps> = ({
                         icon={
                           <Icon sx={{ display: 'flex', justifyContent: 'center', scale: '75%' }}>
                             <CustomRadioButtonIcon
-                              color={theme.palette.secondary.contrastText}
+                              color={theme.palette.secondary}
+                              checked={false}
                               alt={t('general.button.unchecked')}
                             />
                           </Icon>
@@ -116,7 +117,8 @@ const RadioInput: FC<RadioInputProps> = ({
                         checkedIcon={
                           <Icon sx={{ display: 'flex', justifyContent: 'center', scale: '75%' }}>
                             <CustomRadioButtonIcon
-                              color={theme.palette.secondary.main}
+                              color={theme.palette.secondary}
+                              checked={true}
                               alt={t('general.button.checked')}
                             />
                           </Icon>
