@@ -20,9 +20,11 @@ interface DateInputFieldProps {
   disabled: boolean;
 }
 
+// TODO: Pull from global env variable
+const MAXIMUM_AGE = 5;
 const currentDate = new Date();
 const currentYear = currentDate.getFullYear();
-const startYear = 1900;
+const startYear = currentYear - MAXIMUM_AGE + 1;
 
 const days = Array.from({ length: 31 }, (_, index) => {
   const day: number = index + 1;
