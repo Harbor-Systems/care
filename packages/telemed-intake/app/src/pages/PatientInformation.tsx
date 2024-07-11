@@ -2,6 +2,7 @@ import { Typography } from '@mui/material';
 import { DateTime } from 'luxon';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 import { ErrorDialog, PageForm, safelyCaptureException } from 'ottehr-components';
 import {
   PatientInfo,
@@ -39,6 +40,25 @@ const PatientInformation = (): JSX.Element => {
   const [ageErrorDialogOpen, setAgeErrorDialogOpen] = useState<boolean>(false);
   const { patientInfo } = getSelectors(usePatientInfoStore, ['patientInfo']);
   const paperworkState = getSelectors(usePaperworkStore, ['patchCompletedPaperwork', 'setQuestions']);
+  const { getIdTokenClaims } = useAuth0();
+  const [isLoading, setIsLoading] = useState(true);
+  const [userEmail, setUserEmail] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    const getUserEmail = async (): Promise<void> => {
+      try {
+        const idTokenClaims = await getIdTokenClaims();
+        setUserEmail(idTokenClaims?.email);
+      } catch (error) {
+        console.error('Error getting id token claims:', error);
+      }
+    };
+
+    if (patientInfo.email === undefined) {
+      void getUserEmail();
+    }
+    setIsLoading(false);
+  }, [getIdTokenClaims, patientInfo.email]);
 
   useEffect(() => {
     //mixpanel.track('Patient Information page opened');
@@ -103,6 +123,10 @@ const PatientInformation = (): JSX.Element => {
   const formattedBirthday = DateTime.fromFormat(yupDateTransform(patientInfo.dateOfBirth) || '', 'yyyy-MM-dd').toFormat(
     'dd MMMM, yyyy',
   );
+
+  if (isLoading) {
+    return <></>;
+  }
 
   return (
     <CustomContainer
@@ -177,7 +201,7 @@ const PatientInformation = (): JSX.Element => {
             name: 'email',
             label: 'Email',
             format: 'Email',
-            defaultValue: patientInfo.email,
+            defaultValue: patientInfo.email ?? userEmail,
             required: true,
           },
           {
