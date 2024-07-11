@@ -2,20 +2,20 @@
   "serviceName": "Harbor",
   "welcome" : {
     "title": "Harbor",
-    "subtext": "Your free extended trial to Harbor's Remote Night Nanny is based on Harbor's availability, your family's eligibility, and is on a first come first serve basis. Free extended trial must be redeemed prior to October 1st, 2024.",
-    "html": "",
+    "subtext": "Your free extended trial (8 nights) to Harbor's Remote Night Nanny is based on Harbor's availability, your family's eligibility, and is on a first come first serve basis. Free extended trial must be redeemed prior to October 1, 2024.",
+    "html": "<p><em>Harbor's Remote Night Nanny is 4 consecutive nights from 10pm to 6am.</em></p>",
     "subtitle": "Online Scheduling",
     "support": "We are here to support you and your family.",
     "availability": "Please, enter your mobile phone number. We'll verify if we have your information already. If we do, we'll pre-fill your past information for a faster booking."
   },
   "newUser": {
     "title": "Need a refresher on Harbor's Remote Night Nanny?",
-    "subtext": "We're pleased to offer this new technology for accessing care. You will need to enter your information again just once. Next time you return, it will all be here for you!",
-    "html": "<div style=\"padding:56.25% 0 0 0;position:relative;margin:15px 0 0\"><iframe src=\"https://player.vimeo.com/video/913424910?h=dfa236ec46&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479\" frameborder=\"0\" allow=\"autoplay; fullscreen; picture-in-picture; clipboard-write\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" title=\"What is Harbor's Remote Night Nanny?\"></iframe></div><script src=\"https://player.vimeo.com/api/player.js\"></script>"
+    "subtext": "We're pleased to offer you an extended free trial to Harbor's Remote Night Nanny!",
+    "html": "<p><em>You will only need to enter your information one more time - the next time you login, it will be here for you!</em></p><div style=\"padding:56.25% 0 0 0;position:relative;margin:15px 0 0\"><iframe src=\"https://player.vimeo.com/video/913424910?h=dfa236ec46&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479\" frameborder=\"0\" allow=\"autoplay; fullscreen; picture-in-picture; clipboard-write\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" title=\"What is Harbor's Remote Night Nanny?\"></iframe></div><script src=\"https://player.vimeo.com/api/player.js\"></script>"
   },
   "patientInfo": {
     "title": "About the child",
-    "description": "We use this information to ensure we're able to provide you with care. All information is kept confidential.",
+    "description": "We use this information to ensure we're able to provide you with the best Remote Night Nanny experience. All information is secure and kept confidential.",
     "formElement": {
       "labels": {
         "firstName": "Child's legal first name",
@@ -44,7 +44,7 @@
     }
   },
   "waitingRoom": {
-    "title": "Congratulations",
+    "title": "Congratulations!",
     "subtext": "You're one step closer to resting easy. Our care team will reach out to book a 30 minute consultation prior to your trial."
   }
 }

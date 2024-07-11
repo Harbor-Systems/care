@@ -95,10 +95,11 @@ const Welcome = (): JSX.Element => {
               type="submit"
               sx={{
                 mt: 2,
+                flexGrow: { xs: 1, md: 0 },
               }}
               onClick={onSubmit}
             >
-              Continue
+              {t('general.button.continue')}
             </Button>
           </Box>
         </>
