@@ -33,8 +33,9 @@
     "ci-deploy-skeleton": "ENV=${ENV} VITE_APP_SHA=${GIT_HEAD:-$(git rev-parse --short HEAD)} VITE_APP_VERSION=$(node -pe 'require(\"./package.json\").version') pnpm run build:dev && aws s3 sync build/ s3://ehr.ottehr.com --region us-east-1 --delete && aws cloudfront create-invalidation --distribution-id ${CLOUDFRONT_ID} --paths '/*' --region us-east-1",
     "harbor-deploy": " PREFIX=development CLOUDFRONT_ID=E10TA6FN58D1OS pnpm run ci-deploy-skeleton ENV=${ENV}",
     "harbor-ci-deploy-skeleton": "ENV=${ENV} VITE_APP_SHA=${GIT_HEAD:-$(git rev-parse --short HEAD)} VITE_APP_VERSION=$(node -pe 'require(\"./package.json\").version') pnpm run build && aws s3 sync build/ s3://ehr.ottehr.com --region us-east-1 --delete && aws cloudfront create-invalidation --distribution-id ${CLOUDFRONT_ID} --paths '/*' --region us-east-1",
-    "harbor-ci-deploy-base": "CLOUDFRONT_ID=E2YMQYOKLEE3GO VITE_APP_ENV=${ENV} VITE_APP_SHA=${GIT_HEAD:-$(git rev-parse --short HEAD)} VITE_APP_VERSION=$(node -pe 'require(\"./package.json\").version') npm run build:${ENV} && aws s3 sync build/ s3://harbor-ehr --profile default --region us-east-1 --delete && aws cloudfront create-invalidation --profile default --distribution-id ${CLOUDFRONT_ID} --paths '/*' --region us-east-1",
-    "harbor-ci-deploy:development": "ENV=development PREFIX=development CLOUDFRONT_ID=E2YMQYOKLEE3GO npm run ci-deploy-base",
+    "harbor-ci-deploy-base": "VITE_APP_ENV=${ENV} VITE_APP_SHA=${GIT_HEAD:-$(git rev-parse --short HEAD)} VITE_APP_VERSION=$(node -pe 'require(\"./package.json\").version') npm run build:${ENV} && aws s3 sync build/ s3://${S3_BUCKET} --profile default --region us-east-1 --delete && aws cloudfront create-invalidation --profile default --distribution-id ${CLOUDFRONT_ID} --paths '/*' --region us-east-1",
+    "harbor-ci-deploy:development": "ENV=development PREFIX=development CLOUDFRONT_ID=E2YMQYOKLEE3GO S3_BUCKET=harbor-lighthouse-ehr npm run ci-deploy-base",
+    "harbor-ci-deploy:production": "ENV=development PREFIX=development CLOUDFRONT_ID=E1BDQ5UF9QLRZ5 S3_BUCKET=harbor-ehr npm run ci-deploy-base"
   },
   "dependencies": {
     "@mui/icons-material": "^5.14.9",
