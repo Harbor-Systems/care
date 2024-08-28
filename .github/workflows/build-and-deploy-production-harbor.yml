@@ -1,0 +1,79 @@
+name: "Production: Deploy production Harbor"
+
+on:
+  workflow_dispatch:
+    inputs:
+      deploy-ehr-app:
+        description: 'Deploy ehr (careteam) app'
+        default: true
+        type: boolean
+      deploy-ehr-zambda:
+        description: 'Deploy ehr (careteam) zambda'
+        default: false
+        type: boolean
+      deploy-care-intake-app:
+        description: 'Deploy ehr (care) app'
+        default: true
+        type: boolean
+      deploy-care-intake-zambda:
+        description: 'Deploy ehr (care) zambda'
+        default: false
+        type: boolean
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    # environment: ${{ github.event.inputs.environment }}
+
+    strategy:
+      matrix:
+        node-version: [18.18.0]
+
+    steps:
+      # setup AWS
+      # - name: Configure AWS credentials
+      #   uses: aws-actions/configure-aws-credentials@v1-node16
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-region: us-east-1
+
+      - name: Add profile credentials to ~/.aws/credentials
+        run: |
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }} --profile default
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }} --profile default
+          aws configure set region us-east-1 --profile default
+
+      - uses: actions/checkout@v3
+        # with:
+        #   ref: development
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - uses: pnpm/action-setup@v4
+        # with:
+        #   version: 8
+
+      - name: Create env files from secrets
+        shell: bash
+        run: |
+          echo ${{ secrets.EHR_APP_PRODUCTION }} | base64 --decode > packages/telemed-ehr/app/env/.env.development
+          echo ${{ secrets.EHR_ZAMBDAS_PRODUCTION }} | base64 --decode > packages/telemed-ehr/zambdas/.env/development.json
+          echo ${{ secrets.EHR_ZAMBDAS_PRODUCTION }} | base64 --decode > packages/telemed-ehr/zambdas/.env/dev.json
+          echo ${{ secrets.INTAKE_APP_PRODUCTION }} | base64 --decode > packages/telemed-intake/app/env/.env.production
+          echo ${{ secrets.INTAKE_ZAMBDAS_PRODUCTION }} | base64 --decode > packages/telemed-intake/zambdas/.env/development.json
+          echo ${{ secrets.INTAKE_ZAMBDAS_PRODUCTION }} | base64 --decode > packages/telemed-intake/zambdas/.env/dev.json
+
+
+
+      - name: Run deploy harbor
+        shell: bash
+        env:
+          DEPLOY_EHR_APP: ${{ github.event.inputs.deploy-ehr-app }}
+          DEPLOY_EHR_ZAMBDA: ${{ github.event.inputs.deploy-ehr-zambda }}
+          DEPLOY_CARE_INTAKE_APP: ${{ github.event.inputs.deploy-care-intake-app }}
+          DEPLOY_CARE_INTAKE_ZAMBDA: ${{ github.event.inputs.deploy-care-intake-zambda }}
+        run: ./scripts/deploy-harbor-production.sh
