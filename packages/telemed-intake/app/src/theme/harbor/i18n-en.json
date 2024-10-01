@@ -228,7 +228,7 @@
     "scheduleNotAvailable": "The schedule \"{{slug}}\" is not available",
     "visitServiceNotAvailable": "The service \"{{visitService}}\" is not available",
     "scheduleError": "There was an error getting the schedule. Please refresh and if you still get errors contact us.",
-    "message": "Your free extended trial (10 nights) to Harbor's Remote Night Nanny is based on Harbor's availability, your family's eligibility, and is on a first come first serve basis. Free extended trial must be redeemed prior to October 1, 2024.",
+    "message": "Your free extended trial (10 nights) to Harbor's Remote Night Nanny is based on Harbor's availability, your family's eligibility, and is on a first come first serve basis. Free extended trial must be redeemed prior to Dec 31st, 2024.",
     "html": "<p><em>Harbor's Remote Night Nanny is 5 consecutive nights from Sunday pm through Friday am.</em></p>",
     "dateError": {
       "title": "Please select a date and time",
