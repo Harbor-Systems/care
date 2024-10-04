@@ -53,10 +53,10 @@
   "contactSupport": {
     "needHelp": "Need help?",
     "support": "Support",
-    "callUs": "Call us: <strong>(123) 456-7890</strong>",
+    "callUs": "Email us: <strong>careteam@harbor.co</strong>",
     "hours": "Sunday-Saturday 10am-10pm ET.",
-    "moreInfo": "For wait times or more information:",
-    "moreInfoLink": "https://ottehr.com",
+    "moreInfo": "For more information:",
+    "moreInfoLink": "https://harbor.gorgias.help/en-US/articles/remote-night-nanny-168557",
     "moreInfoLinkText": "Click Here",
     "emergency": "If this is an emergency, please call 911."
   },
@@ -128,7 +128,8 @@
   "pastVisits": {
     "visits": "Visits",
     "visitDetails": "Visit Details",
-    "backToHome": "Back to homepage"
+    "backToHome": "Back to homepage",
+    "noVisits": "No visits"
   },
   "patientInfo": {
     "title": "About the patient",
@@ -198,11 +199,11 @@
   "thankYou": {
     "title": "Thank you for choosing Harbor",
     "description": "We look forward to helping you soon!",
-    "checkInBookedTime": "Your check-in time is booked for:",
-    "confirmationMessage": "You will receive a confirmation email and SMS for your upcoming check-in time shortly. If you need to make any changes, please follow the instructions in the email.",
+    "checkInBookedTime": "Your consultation is booked for:",
+    "confirmationMessage": "One of our providers will reach out to you at the scheduled time. You will receive a confirmation email and SMS for your upcoming consultation shortly. If you need to make any changes, please follow the instructions in the email.",
     "insurancePolicy": "All patients that present with commercial insurance will be required to leave a credit card on file. More details on our financial policy can be found ",
     "insurancePolicyLinkText": "here",
-    "contactUs": "If you have any questions or concerns, please call our team at: <strong>(123) 456-7890</strong>."
+    "contactUs": "If you have any questions or concerns, please email at: <strong>careteam@harbor.co</strong>."
   },
   "visitDetails": {
     "visitId": "Visit ID: {{visitId}}",
@@ -211,15 +212,15 @@
   "waitingRoom": {
     "title": "Congratulations!",
     "imgAlt": "",
-    "subtext": "You're one step closer to resting easy. Our care team will reach out to book a 30 minute consultation prior to your trial.",
+    "subtext": "You're one step closer to resting easy. Our care team will reach out for your 30 minute consultation.",
     "approxWaitTime": "Approx. wait time - {{estimatedTime}}",
     "fallbackWaitTime": "...mins",
     "callSettingsTitle": "Call settings & Test",
     "callSettingsSubtext": "Audio, video, microphone",
     "leaveRoomTitle": "Leave waiting room",
     "leaveRoomSubtext": "We will notify you once the call starts",
-    "cancelVisitTitle": "Cancel visit",
-    "cancelVisitSubtext": "You will not be charged if you cancel the visit"
+    "cancelVisitTitle": "Cancel consultation",
+    "cancelVisitSubtext": "You will not be charged if you cancel the consultation"
   },
   "welcome": {
     "title": "Harbor",
@@ -228,8 +229,8 @@
     "scheduleNotAvailable": "The schedule \"{{slug}}\" is not available",
     "visitServiceNotAvailable": "The service \"{{visitService}}\" is not available",
     "scheduleError": "There was an error getting the schedule. Please refresh and if you still get errors contact us.",
-    "message": "Your free extended trial (10 nights) to Harbor's Remote Night Nanny is based on Harbor's availability, your family's eligibility, and is on a first come first serve basis. Free extended trial must be redeemed prior to Dec 31st, 2024.",
-    "html": "<p><em>Harbor's Remote Night Nanny is 5 consecutive nights from Sunday pm through Friday am.</em></p>",
+    "message": "Schedule your Consultation now.",
+    "html": "<p><em>Your free extended trial to Harbor's Remote Night Nanny must be redeemed prior to Dec 31st, 2024.</em></p>",
     "dateError": {
       "title": "Please select a date and time",
       "description": "To continue, please select an available appointment."

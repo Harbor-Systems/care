@@ -36,6 +36,7 @@ import {
   getSecret,
   topLevelCatch,
   getOptionalSecret,
+  getRecentQuestionnaireResponse,
 } from 'ottehr-utils';
 import { getPatientContactEmail } from '../../appointment/create-appointment';
 import { getM2MClientToken, getVideoEncounterForAppointment, sendConfirmationMessages } from '../../shared';
@@ -50,6 +51,7 @@ import {
 import { getRelatedPersonForPatient } from '../../shared/patients';
 import { FileURLs, PatientEthnicity, PatientEthnicityCode, PatientRace, PatientRaceCode } from '../../types';
 import { validateCreatePaperworkParams } from './validateRequestParameters';
+import { Question, simplifyQuestionnaireResponse } from './questionnaireResponse';
 
 // Lifting the token out of the handler function allows it to persist across warm lambda invocations.
 export let token: string;
@@ -114,7 +116,7 @@ export const index = async (input: ZambdaInput): Promise<APIGatewayProxyResult> 
     console.log(
       `Searching for QuestionnaireResponses for Questionnaire with ID ${questionnaire.id} and Encounter with ID ${encounter.id}`,
     );
-    const questionnaireResponseResource = await getQuestionnaireResponse(questionnaire.id, encounter.id, fhirClient);
+    let questionnaireResponseResource = await getQuestionnaireResponse(questionnaire.id, encounter.id, fhirClient);
 
     const hipaa = paperwork.find((data) => data.linkId === 'hipaa-acknowledgement')?.response;
     const consentToTreat = paperwork.find((data) => data.linkId === 'consent-to-treat')?.response;
@@ -135,6 +137,9 @@ export const index = async (input: ZambdaInput): Promise<APIGatewayProxyResult> 
         createConsentItems,
       );
     }
+
+    let questionnaireSummary: Question[] = [];
+    console.log('questionnaireResponseResource: ', questionnaireResponseResource);
     if (questionnaireResponseResource) {
       console.log(`Found a QuestionnaireResponse with ID ${questionnaireResponseResource.id}`);
       await updateQuestionnaireResponse(
@@ -161,7 +166,12 @@ export const index = async (input: ZambdaInput): Promise<APIGatewayProxyResult> 
         ipAddress,
         fhirClient,
       );
+      questionnaireResponseResource = await getQuestionnaireResponse(questionnaire.id, encounter.id, fhirClient);
     }
+    if (questionnaireResponseResource) {
+      questionnaireSummary = simplifyQuestionnaireResponse(questionnaireResponseResource, questionnaire);
+    }
+
     await createAuditEvent(AuditableZambdaEndpoints.paperworkUpdate, fhirClient, input, patientID, secrets);
 
     const { patient, verifiedPhoneNumber } = await getPatientResourceWithVerifiedPhoneNumber(patientID, fhirClient);
@@ -194,6 +204,7 @@ export const index = async (input: ZambdaInput): Promise<APIGatewayProxyResult> 
           appointment.appointmentType?.text || '',
           verifiedPhoneNumber,
           token,
+          questionnaireSummary,
         );
       }
     }
