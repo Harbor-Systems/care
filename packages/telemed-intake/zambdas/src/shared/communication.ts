@@ -3,6 +3,11 @@ import { Secrets, SecretsKeys, getSecret, createMessagingClient, getOptionalSecr
 import i18n from './i18n';
 import { HealthcareService, Location, Practitioner } from 'fhir/r4';
 
+interface QuestionResponse {
+  question: string;
+  answer?: string | undefined;
+  answers?: QuestionResponse[];
+}
 export interface ConfirmationEmailInput {
   email: string;
   firstName: string | undefined;
@@ -11,6 +16,7 @@ export interface ConfirmationEmailInput {
   secrets: Secrets | null;
   location: Location;
   appointmentType: string;
+  questionnaireResponse: QuestionResponse[];
 }
 
 export const sendConfirmationEmail = async (input: ConfirmationEmailInput): Promise<void> => {
@@ -30,6 +36,7 @@ export const sendConfirmationEmail = async (input: ConfirmationEmailInput): Prom
     appointmentType,
     paperworkUrl: `${WEBSITE_URL}/paperwork/${appointmentID}`,
     checkInUrl: `${WEBSITE_URL}/waiting-room?appointment_id=${appointmentID}`,
+    questionnaireResponse: input.questionnaireResponse,
   };
   await sendEmail(email, templateId, subject, templateInformation, secrets);
 };
@@ -148,6 +155,7 @@ export async function sendConfirmationMessages(
   appointmentType: string,
   verifiedPhoneNumber: string | undefined,
   token: string,
+  questionnaireResponse: QuestionResponse[],
 ): Promise<void> {
   if (email) {
     await sendConfirmationEmail({
@@ -158,6 +166,7 @@ export async function sendConfirmationMessages(
       secrets,
       location,
       appointmentType,
+      questionnaireResponse,
     });
   } else {
     console.log('email undefined');
