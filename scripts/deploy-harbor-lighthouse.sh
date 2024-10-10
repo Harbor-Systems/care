@@ -65,7 +65,7 @@ fi
 if [ "$DEPLOY_CARE_INTAKE_ZAMBDA" = "true" ]; then
 echo "Building package: telemed-intake/zambdas"
 pushd "packages/telemed-intake/zambdas"
-pnpm deploy-zambdas dev
+pnpm deploy-zambdas development
 popd
 fi
 
