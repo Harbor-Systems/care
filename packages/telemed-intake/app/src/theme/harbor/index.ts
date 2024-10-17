@@ -5,4 +5,5 @@ export { palette, otherColors } from './colors';
 export { default as componentStyles } from './styles';
 export const typography = {};
 
+export * as helpers from './helpers';
 export * from './icons';

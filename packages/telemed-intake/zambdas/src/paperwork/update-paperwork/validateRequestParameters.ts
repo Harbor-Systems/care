@@ -23,7 +23,7 @@ export function validateUpdatePaperworkParams(
   }
 
   const inputJSON = JSON.parse(input.body);
-  const { appointmentID, paperwork, files, timezone } = inputJSON;
+  const { appointmentID, paperworkIdentifier, paperwork, files, timezone } = inputJSON;
 
   const responses: PaperworkResponse[] = [];
 
@@ -183,6 +183,7 @@ export function validateUpdatePaperworkParams(
 
   return {
     appointmentID,
+    paperworkIdentifier: paperworkIdentifier,
     timezone,
     paperwork: responses,
     files,

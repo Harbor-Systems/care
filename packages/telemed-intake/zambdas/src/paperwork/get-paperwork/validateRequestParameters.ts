@@ -6,7 +6,7 @@ export function validateRequestParameters(input: ZambdaInput): GetPaperworkInput
     throw new Error('No request body provided');
   }
 
-  const { appointmentID } = JSON.parse(input.body);
+  const { appointmentID, paperworkIdentifier } = JSON.parse(input.body);
 
   if (!appointmentID) {
     throw new Error('appointmentID is not defined');
@@ -16,6 +16,7 @@ export function validateRequestParameters(input: ZambdaInput): GetPaperworkInput
 
   return {
     appointmentID,
+    paperworkIdentifier: paperworkIdentifier,
     secrets: input.secrets,
     authorization,
   };

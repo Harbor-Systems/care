@@ -52,6 +52,7 @@ export interface PaperworkPage {
 
 export interface GetPaperworkRequestParams {
   appointmentID: string;
+  paperworkIdentifier: string | undefined;
 }
 
 export interface PaperworkResponseWithoutResponses {
