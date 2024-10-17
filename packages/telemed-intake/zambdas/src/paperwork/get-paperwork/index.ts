@@ -37,6 +37,7 @@ import { validateRequestParameters } from './validateRequestParameters';
 
 export interface GetPaperworkInput {
   appointmentID: string; // passed for appointment visits
+  paperworkIdentifier: string | undefined;
   secrets: Secrets | null;
   authorization: string | undefined;
 }
@@ -62,7 +63,7 @@ export const index = async (input: ZambdaInput): Promise<APIGatewayProxyResult> 
   try {
     console.group('validateRequestParameters');
     const validatedParameters = validateRequestParameters(input);
-    const { appointmentID, secrets, authorization } = validatedParameters;
+    const { appointmentID, paperworkIdentifier, secrets, authorization } = validatedParameters;
     console.groupEnd();
     console.debug('validateRequestParameters success');
 
@@ -85,8 +86,12 @@ export const index = async (input: ZambdaInput): Promise<APIGatewayProxyResult> 
           name: 'name',
           value: 'telemed',
         },
+        ...(paperworkIdentifier ? [{ name: 'identifier', value: paperworkIdentifier }] : []),
       ],
     });
+    if (questionnaireSearch.length == 0) {
+      throw new Error('Questionnaire not found');
+    }
     const questionnaire: Questionnaire = questionnaireSearch[0];
     if (!questionnaire.id) {
       throw new Error('Questionnaire ID is undefined');

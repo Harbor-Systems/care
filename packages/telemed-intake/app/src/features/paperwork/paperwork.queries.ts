@@ -4,6 +4,7 @@ import { ZapEHRAPIClient } from 'ottehr-components';
 import { FileURLs, PromiseReturnType, isNullOrUndefined } from 'ottehr-utils';
 import { useZapEHRAPIClient } from '../../utils';
 import { useAppointmentStore } from '../appointments';
+import { helpers } from '@theme/index';
 
 export const useGetPaperwork = (
   onSuccess?: (data: PromiseReturnType<ReturnType<ZapEHRAPIClient['getPaperwork']>>) => void,
@@ -15,7 +16,8 @@ export const useGetPaperwork = (
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 ) => {
   const apiClient = useZapEHRAPIClient();
-  const appointmentID = useAppointmentStore((state) => state.appointmentID);
+  const appointmentState = useAppointmentStore();
+  const appointmentID = appointmentState.appointmentID;
 
   return useQuery(
     ['paperwork', appointmentID],
@@ -23,6 +25,7 @@ export const useGetPaperwork = (
       if (apiClient && appointmentID) {
         return apiClient.getPaperwork({
           appointmentID: appointmentID,
+          paperworkIdentifier: helpers.getPaperworkIdentifier(appointmentState),
         });
       }
 
@@ -46,6 +49,8 @@ export const useGetPaperwork = (
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const useUpdatePaperworkMutation = () => {
   const queryClient = useQueryClient();
+  const appointmentState = useAppointmentStore();
+
   return useMutation({
     mutationFn: async ({
       apiClient,
@@ -60,6 +65,7 @@ export const useUpdatePaperworkMutation = () => {
     }) => {
       await apiClient.updatePaperwork({
         appointmentID,
+        paperworkIdentifier: helpers.getPaperworkIdentifier(appointmentState),
         paperwork: paperwork ? paperwork : [],
         files: files || ({} as FileURLs),
         timezone: DateTime.now().zoneName,
@@ -70,8 +76,10 @@ export const useUpdatePaperworkMutation = () => {
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const useCreatePaperworkMutation = () =>
-  useMutation({
+export const useCreatePaperworkMutation = () => {
+  const appointmentState = useAppointmentStore();
+
+  return useMutation({
     mutationFn: ({
       apiClient,
       appointmentID,
@@ -85,9 +93,11 @@ export const useCreatePaperworkMutation = () =>
     }) => {
       return apiClient.createPaperwork({
         appointmentID,
+        paperworkIdentifier: helpers.getPaperworkIdentifier(appointmentState),
         paperwork,
         files: files || ({} as FileURLs),
         timezone: DateTime.now().zoneName,
       });
     },
   });
+};
