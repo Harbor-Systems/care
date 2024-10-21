@@ -69,6 +69,13 @@ export const index = async (input: ZambdaInput): Promise<APIGatewayProxyResult> 
       console.log('already have token');
     }
 
+    if (!input.body) {
+      throw new Error('No request body provided');
+    }
+
+    const inputJSON = JSON.parse(input.body);
+    const { paperworkIdentifier } = inputJSON;
+
     const fhirClient = createFhirClient(token);
     const questionnaireSearch: Questionnaire[] = await fhirClient.searchResources({
       resourceType: 'Questionnaire',
@@ -77,8 +84,12 @@ export const index = async (input: ZambdaInput): Promise<APIGatewayProxyResult> 
           name: 'name',
           value: 'telemed',
         },
+        ...(paperworkIdentifier ? [{ name: 'identifier', value: paperworkIdentifier }] : []),
       ],
     });
+    if (questionnaireSearch.length == 0) {
+      throw new Error('Questionnaire not found');
+    }
     const questionnaire: Questionnaire | undefined = questionnaireSearch[0];
     if (!questionnaire.id) {
       throw new Error('Questionnaire does not have ID');

@@ -235,7 +235,10 @@ export const getZapEHRAPI = (
   };
 
   const createPaperwork = async (
-    parameters: Pick<CreatePaperworkInput, 'appointmentID' | 'files' | 'paperwork' | 'paperworkComplete' | 'timezone'>,
+    parameters: Pick<
+      CreatePaperworkInput,
+      'appointmentID' | 'paperworkIdentifier' | 'files' | 'paperwork' | 'paperworkComplete' | 'timezone'
+    >,
   ): Promise<CreatePaperworkResponse> => {
     const payload = Object.fromEntries(
       Object.entries(parameters).filter(
@@ -247,7 +250,10 @@ export const getZapEHRAPI = (
   };
 
   const updatePaperwork = async (
-    parameters: Pick<UpdatePaperworkInput, 'appointmentID' | 'files' | 'paperwork' | 'timezone'>,
+    parameters: Pick<
+      UpdatePaperworkInput,
+      'appointmentID' | 'paperworkIdentifier' | 'files' | 'paperwork' | 'timezone'
+    >,
   ): Promise<UpdatePaperworkResponse> => {
     const payload = Object.fromEntries(
       Object.entries(parameters).filter(
