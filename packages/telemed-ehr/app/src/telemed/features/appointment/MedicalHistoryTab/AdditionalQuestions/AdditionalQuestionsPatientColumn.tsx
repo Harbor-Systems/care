@@ -4,6 +4,7 @@ import { FhirResource, Questionnaire, QuestionnaireItem, QuestionnaireResponse }
 import { QuestionnaireLinkIds } from 'ehr-utils';
 import { getSelectors } from '../../../../../shared/store/getSelectors';
 import { useAppointmentStore, useGetQuestionnaireDetails } from '../../../../state';
+import { AttachmentsCard } from './AttachmentsCard';
 
 const omitKnownQuestions = Object.values(QuestionnaireLinkIds) as string[];
 
@@ -50,7 +51,11 @@ export const AdditionalQuestionsPatientColumn: FC = () => {
         <Typography variant="overline" sx={{ opacity: 0.6 }}>
           {questionStructure.text}
         </Typography>
-        <Typography>{answer}</Typography>
+        {questionStructure.linkId.endsWith('-attachment') ? (
+          <AttachmentsCard attachmentTitle={questionStructure.linkId} />
+        ) : (
+          <Typography>{answer}</Typography>
+        )}
       </Box>
     ) : null;
   };

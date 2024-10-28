@@ -6,3 +6,4 @@ export * from './useIsReadOnly';
 export * from './useGetAppointmentAccessibility';
 export * from './useTrackingBoardTableButtonType';
 export * from './usePatientProvidedExcusePresignedFiles';
+export * from './usePreSignedAttachmentFiles';

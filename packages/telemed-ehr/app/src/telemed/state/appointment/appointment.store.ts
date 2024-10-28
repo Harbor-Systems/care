@@ -1,4 +1,4 @@
-import { Appointment, Encounter, Location, Patient, Questionnaire, QuestionnaireResponse } from 'fhir/r4';
+import { Appointment, Attachment, Encounter, Location, Patient, Questionnaire, QuestionnaireResponse } from 'fhir/r4';
 import { GetChartDataResponse } from 'ehr-utils';
 import { create } from 'zustand';
 
@@ -17,6 +17,7 @@ type AppointmentState = {
   isReadOnly: boolean;
   chartData: GetChartDataResponse | undefined;
   currentTab: string;
+  attachments: Attachment[];
 };
 
 interface AppointmentStoreActions {
@@ -38,6 +39,7 @@ const APPOINTMENT_INITIAL: AppointmentState = {
   isReadOnly: true,
   chartData: undefined,
   currentTab: 'hpi',
+  attachments: [],
 };
 
 export const useAppointmentStore = create<AppointmentState & AppointmentStoreActions>()((set) => ({
