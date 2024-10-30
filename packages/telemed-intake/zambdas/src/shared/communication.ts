@@ -16,6 +16,7 @@ export interface ConfirmationEmailInput {
   secrets: Secrets | null;
   location: Location;
   appointmentType: string;
+  icsContent?: string;
   questionnaireResponse: QuestionResponse[];
 }
 
@@ -38,7 +39,17 @@ export const sendConfirmationEmail = async (input: ConfirmationEmailInput): Prom
     checkInUrl: `${WEBSITE_URL}/waiting-room?appointment_id=${appointmentID}`,
     questionnaireResponse: input.questionnaireResponse,
   };
-  await sendEmail(email, templateId, subject, templateInformation, secrets);
+  const attachments = [];
+  if (input.icsContent) {
+    attachments.push({
+      content: Buffer.from(input.icsContent).toString('base64'),
+      filename: 'appointment.ics',
+      type: 'text/calendar',
+      disposition: 'attachment',
+      content_id: 'appointment_invite',
+    });
+  }
+  await sendEmail(email, templateId, subject, templateInformation, secrets, attachments);
 };
 
 export interface CancellationEmail {
@@ -96,6 +107,7 @@ async function sendEmail(
   subject: string,
   templateInformation: any,
   secrets: Secrets | null,
+  attachments: any[] = [],
 ): Promise<void> {
   console.log(`Sending email confirmation to ${email}`);
   const SENDGRID_API_KEY = getSecret(SecretsKeys.SENDGRID_API_KEY, secrets);
@@ -128,6 +140,7 @@ async function sendEmail(
       subject,
       ...templateInformation,
     },
+    attachments: attachments,
   };
 
   try {
@@ -155,6 +168,7 @@ export async function sendConfirmationMessages(
   appointmentType: string,
   verifiedPhoneNumber: string | undefined,
   token: string,
+  icsContent: string | undefined,
   questionnaireResponse: QuestionResponse[],
 ): Promise<void> {
   if (email) {
@@ -166,6 +180,7 @@ export async function sendConfirmationMessages(
       secrets,
       location,
       appointmentType,
+      icsContent,
       questionnaireResponse,
     });
   } else {
