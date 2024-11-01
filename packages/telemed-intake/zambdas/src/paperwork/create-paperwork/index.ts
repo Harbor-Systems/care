@@ -125,7 +125,13 @@ export const index = async (input: ZambdaInput): Promise<APIGatewayProxyResult> 
     console.log(`paperworkComplete ${paperworkComplete}`);
 
     console.log('Creating DocumentReferences for cards');
-    await createImagesAndDocsResources(files, patientID, appointmentID, nowISO, fhirClient);
+    let customFileTypes: string[];
+    try {
+      customFileTypes = getSecret(SecretsKeys.ALLOWED_FILE_TYPES, input.secrets).split(',');
+    } catch (e) {
+      customFileTypes = [];
+    }
+    await createImagesAndDocsResources(files, patientID, appointmentID, nowISO, fhirClient, customFileTypes);
     console.log(
       `Searching for QuestionnaireResponses for Questionnaire with ID ${questionnaire.id} and Encounter with ID ${encounter.id}`,
     );
@@ -839,9 +845,9 @@ function makeQuestionnaireResponseResource(
 }
 
 interface DocToSaveData {
-  code: string;
+  code?: string;
   display: string;
-  text: string;
+  text?: string;
   files: FileDocDataForDocReference[];
 }
 
@@ -851,6 +857,7 @@ async function createImagesAndDocsResources(
   appointmentID: string,
   dateCreated: string,
   fhirClient: FhirClient,
+  customFileTypes: string[],
 ): Promise<void> {
   console.log('reviewing insurance cards and photo id cards');
 
@@ -887,6 +894,17 @@ async function createImagesAndDocsResources(
     text: 'Patient work/school notes',
     files: [],
   };
+
+  // additional
+  const additionalDocsToSave: DocToSaveData[] = customFileTypes.map((type) => ({
+    code: undefined,
+    display: type
+      .split('-')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' '), // Capitalize each word
+    text: type,
+    files: [],
+  }));
 
   if (files) {
     if (files[INSURANCE_CARD_FRONT_ID]?.z3Url) {
@@ -961,23 +979,54 @@ async function createImagesAndDocsResources(
           title: key,
         });
       }
+
+      if (customFileTypes.includes(key) && files[key]?.z3Url) {
+        additionalDocsToSave
+          .find((doc) => doc.text === key)
+          ?.files.push({
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            url: files[key].z3Url!,
+            title: key,
+          });
+      }
     });
   }
 
-  docsToSave.push(insuranceDocToSave, photoIdDocToSave, patientPhotosDocToSave, schoolWorkNotesDocToSave);
+  docsToSave.push(
+    insuranceDocToSave,
+    photoIdDocToSave,
+    patientPhotosDocToSave,
+    schoolWorkNotesDocToSave,
+    ...additionalDocsToSave,
+  );
 
   docsToSave.forEach(async (d) => {
     // Update insurance cards DocumentReferences
+    const searchParams = [
+      {
+        name: 'related',
+        value: `Patient/${patientID}`,
+      },
+    ];
+    if (d.code) {
+      searchParams.push({
+        name: 'type',
+        value: d.code,
+      });
+    }
+
     await createFilesDocumentReference({
       files: d.files,
       type: {
-        coding: [
-          {
-            system: 'http://loinc.org',
-            code: d.code,
-            display: d.display,
-          },
-        ],
+        coding: d.code
+          ? [
+              {
+                system: 'http://loinc.org',
+                code: d.code,
+                display: d.display,
+              },
+            ]
+          : undefined,
         text: d.text,
       },
       dateCreated,
@@ -986,16 +1035,7 @@ async function createImagesAndDocsResources(
           related: [{ reference: `Patient/${patientID}` }, { reference: `Appointment/${appointmentID}` }],
         },
       },
-      searchParams: [
-        {
-          name: 'related',
-          value: `Patient/${patientID}`,
-        },
-        {
-          name: 'type',
-          value: d.code,
-        },
-      ],
+      searchParams: searchParams,
       fhirClient,
       ottehrModule: OTTEHR_MODULE.TM,
     });

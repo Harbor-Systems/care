@@ -26,14 +26,14 @@ export function validateRequestParameters(input: ZambdaInput): GetPresignedFileU
     throw new Error('"fileFormat" is required');
   }
 
-  if (!fileFormats.includes(fileFormat)) {
+  if (!fileFormats.includes(fileFormat.toLowerCase())) {
     throw new Error(`fileFormat must be one of the following values: ${Object.values(fileFormats).join(', ')}`);
   }
 
   return {
     appointmentID,
     fileType,
-    fileFormat,
+    fileFormat: fileFormat.toLowerCase(),
     secrets: input.secrets,
   };
 }
