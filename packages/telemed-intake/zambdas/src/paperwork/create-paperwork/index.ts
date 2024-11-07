@@ -4,41 +4,41 @@ import { Operation } from 'fast-json-patch';
 import { Appointment, Encounter, EncounterStatusHistory, Patient, Questionnaire, QuestionnaireResponse } from 'fhir/r4';
 import { DateTime } from 'luxon';
 import {
-  DATETIME_FULL_NO_YEAR,
-  FHIR_EXTENSION,
-  FileDocDataForDocReference,
-  INSURANCE_CARD_BACK_ID,
-  INSURANCE_CARD_CODE,
-  INSURANCE_CARD_FRONT_ID,
-  PATIENT_PHOTO_CODE,
-  PATIENT_PHOTO_ID_PREFIX,
-  PHOTO_ID_BACK_ID,
-  PHOTO_ID_CARD_CODE,
-  PHOTO_ID_FRONT_ID,
-  OTTEHR_MODULE,
-  PRIVATE_EXTENSION_BASE_URL,
-  PaperworkResponse,
-  PersonSex,
-  SCHOOL_WORK_NOTE_CODE,
-  SCHOOL_WORK_NOTE_PREFIX,
-  Secrets,
-  SecretsKeys,
-  ZambdaInput,
   checkAndCreateConsent,
   codingsEqual,
   createFhirClient,
   createFilesDocumentReference,
+  DATETIME_FULL_NO_YEAR,
+  FHIR_EXTENSION,
+  FileDocDataForDocReference,
   getAppointmentResourceById,
   getLocationResource,
   getPatientFirstName,
   getPatientResourceWithVerifiedPhoneNumber,
   getQuestionnaireResponse,
   getSecret,
-  topLevelCatch,
+  INSURANCE_CARD_BACK_ID,
+  INSURANCE_CARD_CODE,
+  INSURANCE_CARD_FRONT_ID,
+  OTTEHR_MODULE,
+  PaperworkResponse,
+  PATIENT_PHOTO_CODE,
+  PATIENT_PHOTO_ID_PREFIX,
+  PersonSex,
+  PHOTO_ID_BACK_ID,
+  PHOTO_ID_CARD_CODE,
+  PHOTO_ID_FRONT_ID,
+  PRIVATE_EXTENSION_BASE_URL,
   SCHOOL_WORK_NOTE_BOTH_ID,
-  SCHOOL_WORK_NOTE_WORK_ID,
-  SCHOOL_WORK_NOTE_SCHOOL_ID,
   SCHOOL_WORK_NOTE_BOTH_ID2,
+  SCHOOL_WORK_NOTE_CODE,
+  SCHOOL_WORK_NOTE_PREFIX,
+  SCHOOL_WORK_NOTE_SCHOOL_ID,
+  SCHOOL_WORK_NOTE_WORK_ID,
+  Secrets,
+  SecretsKeys,
+  topLevelCatch,
+  ZambdaInput,
 } from 'ottehr-utils';
 import { getPatientContactEmail } from '../../appointment/create-appointment';
 import { getM2MClientToken, getVideoEncounterForAppointment, sendConfirmationMessages } from '../../shared';
@@ -54,6 +54,7 @@ import { getRelatedPersonForPatient } from '../../shared/patients';
 import { FileURLs, PatientEthnicity, PatientEthnicityCode, PatientRace, PatientRaceCode } from '../../types';
 import { validateCreatePaperworkParams } from './validateRequestParameters';
 import { Question, simplifyQuestionnaireResponse } from './questionnaireResponse';
+import { createICSContent } from './appointmentInvite';
 
 // Lifting the token out of the handler function allows it to persist across warm lambda invocations.
 export let token: string;
@@ -217,6 +218,7 @@ export const index = async (input: ZambdaInput): Promise<APIGatewayProxyResult> 
           appointment.appointmentType?.text || '',
           verifiedPhoneNumber,
           token,
+          createICSContent(startTime, timezone, patient, `${location.name}`, secrets),
           questionnaireSummary,
         );
       }
