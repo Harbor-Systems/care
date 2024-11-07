@@ -17,6 +17,7 @@ provider:
     TELEMED_SENDGRID_VIDEO_CHAT_INVITATION_EMAIL_TEMPLATE_ID: ${file(./.env/${self:provider.stage}.json):TELEMED_SENDGRID_VIDEO_CHAT_INVITATION_EMAIL_TEMPLATE_ID}
     TELEMED_SENDGRID_EMAIL_FROM: ${file(./.env/${self:provider.stage}.json):TELEMED_SENDGRID_EMAIL_FROM}
     TELEMED_SENDGRID_EMAIL_FROM_NAME: ${file(./.env/${self:provider.stage}.json):TELEMED_SENDGRID_EMAIL_FROM_NAME}
+    ALLOWED_FILE_TYPES: ${file(./.env/${self:provider.stage}.json):ALLOWED_FILE_TYPES}
 
 custom:
   defaultStage: local

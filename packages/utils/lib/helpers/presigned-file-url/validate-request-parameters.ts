@@ -11,8 +11,9 @@ import {
   ZambdaInput,
 } from '../../types';
 import { GetPresignedFileURLInput } from './types';
+import {getSecret, SecretsKeys} from "../../secrets";
 
-const fileTypes = [
+const defaultFileTypes = [
   INSURANCE_CARD_BACK_ID,
   INSURANCE_CARD_FRONT_ID,
   PHOTO_ID_FRONT_ID,
@@ -39,7 +40,15 @@ export function validateRequestParameters(input: ZambdaInput): GetPresignedFileU
     throw new Error('"fileType" is required');
   }
 
-  if (!fileTypes.includes(fileType) && !fileType.startsWith(PATIENT_PHOTO_ID_PREFIX)) {
+  let customFileTypes: string[];
+  try {
+    customFileTypes = getSecret(SecretsKeys.ALLOWED_FILE_TYPES, input.secrets).split(',');
+  } catch (e) {
+    customFileTypes = [];
+  }
+
+  const fileTypes = defaultFileTypes.concat(customFileTypes)
+  if (!(fileTypes.concat(customFileTypes)).includes(fileType) && !fileType.startsWith(PATIENT_PHOTO_ID_PREFIX)) {
     throw new Error(`fileType must be one of the following values: ${Object.values(fileTypes).join(', ')}`);
   }
 
@@ -47,7 +56,7 @@ export function validateRequestParameters(input: ZambdaInput): GetPresignedFileU
     throw new Error('"fileFormat" is required');
   }
 
-  if (!fileFormats.includes(fileFormat)) {
+  if (!fileFormats.includes(fileFormat.toLowerCase())) {
     throw new Error(
       `fileFormat ${fileFormat} must be one of the following values: ${Object.values(fileFormats).join(', ')}`,
     );
@@ -56,7 +65,7 @@ export function validateRequestParameters(input: ZambdaInput): GetPresignedFileU
   return {
     appointmentID,
     fileType,
-    fileFormat,
+    fileFormat: fileFormat.toLowerCase(),
     secrets: input.secrets,
   };
 }

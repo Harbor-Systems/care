@@ -4,41 +4,41 @@ import { Operation } from 'fast-json-patch';
 import { Appointment, Encounter, EncounterStatusHistory, Patient, Questionnaire, QuestionnaireResponse } from 'fhir/r4';
 import { DateTime } from 'luxon';
 import {
-  DATETIME_FULL_NO_YEAR,
-  FHIR_EXTENSION,
-  FileDocDataForDocReference,
-  INSURANCE_CARD_BACK_ID,
-  INSURANCE_CARD_CODE,
-  INSURANCE_CARD_FRONT_ID,
-  PATIENT_PHOTO_CODE,
-  PATIENT_PHOTO_ID_PREFIX,
-  PHOTO_ID_BACK_ID,
-  PHOTO_ID_CARD_CODE,
-  PHOTO_ID_FRONT_ID,
-  OTTEHR_MODULE,
-  PRIVATE_EXTENSION_BASE_URL,
-  PaperworkResponse,
-  PersonSex,
-  SCHOOL_WORK_NOTE_CODE,
-  SCHOOL_WORK_NOTE_PREFIX,
-  Secrets,
-  SecretsKeys,
-  ZambdaInput,
   checkAndCreateConsent,
   codingsEqual,
   createFhirClient,
   createFilesDocumentReference,
+  DATETIME_FULL_NO_YEAR,
+  FHIR_EXTENSION,
+  FileDocDataForDocReference,
   getAppointmentResourceById,
   getLocationResource,
   getPatientFirstName,
   getPatientResourceWithVerifiedPhoneNumber,
   getQuestionnaireResponse,
   getSecret,
-  topLevelCatch,
+  INSURANCE_CARD_BACK_ID,
+  INSURANCE_CARD_CODE,
+  INSURANCE_CARD_FRONT_ID,
+  OTTEHR_MODULE,
+  PaperworkResponse,
+  PATIENT_PHOTO_CODE,
+  PATIENT_PHOTO_ID_PREFIX,
+  PersonSex,
+  PHOTO_ID_BACK_ID,
+  PHOTO_ID_CARD_CODE,
+  PHOTO_ID_FRONT_ID,
+  PRIVATE_EXTENSION_BASE_URL,
   SCHOOL_WORK_NOTE_BOTH_ID,
-  SCHOOL_WORK_NOTE_WORK_ID,
-  SCHOOL_WORK_NOTE_SCHOOL_ID,
   SCHOOL_WORK_NOTE_BOTH_ID2,
+  SCHOOL_WORK_NOTE_CODE,
+  SCHOOL_WORK_NOTE_PREFIX,
+  SCHOOL_WORK_NOTE_SCHOOL_ID,
+  SCHOOL_WORK_NOTE_WORK_ID,
+  Secrets,
+  SecretsKeys,
+  topLevelCatch,
+  ZambdaInput,
 } from 'ottehr-utils';
 import { getPatientContactEmail } from '../../appointment/create-appointment';
 import { getM2MClientToken, getVideoEncounterForAppointment, sendConfirmationMessages } from '../../shared';
@@ -54,6 +54,7 @@ import { getRelatedPersonForPatient } from '../../shared/patients';
 import { FileURLs, PatientEthnicity, PatientEthnicityCode, PatientRace, PatientRaceCode } from '../../types';
 import { validateCreatePaperworkParams } from './validateRequestParameters';
 import { Question, simplifyQuestionnaireResponse } from './questionnaireResponse';
+import { createICSContent } from './appointmentInvite';
 
 // Lifting the token out of the handler function allows it to persist across warm lambda invocations.
 export let token: string;
@@ -125,7 +126,13 @@ export const index = async (input: ZambdaInput): Promise<APIGatewayProxyResult> 
     console.log(`paperworkComplete ${paperworkComplete}`);
 
     console.log('Creating DocumentReferences for cards');
-    await createImagesAndDocsResources(files, patientID, appointmentID, nowISO, fhirClient);
+    let customFileTypes: string[];
+    try {
+      customFileTypes = getSecret(SecretsKeys.ALLOWED_FILE_TYPES, input.secrets).split(',');
+    } catch (e) {
+      customFileTypes = [];
+    }
+    await createImagesAndDocsResources(files, patientID, appointmentID, nowISO, fhirClient, customFileTypes);
     console.log(
       `Searching for QuestionnaireResponses for Questionnaire with ID ${questionnaire.id} and Encounter with ID ${encounter.id}`,
     );
@@ -217,6 +224,7 @@ export const index = async (input: ZambdaInput): Promise<APIGatewayProxyResult> 
           appointment.appointmentType?.text || '',
           verifiedPhoneNumber,
           token,
+          createICSContent(startTime, timezone, patient, `${location.name}`, secrets),
           questionnaireSummary,
         );
       }
@@ -839,9 +847,9 @@ function makeQuestionnaireResponseResource(
 }
 
 interface DocToSaveData {
-  code: string;
+  code?: string;
   display: string;
-  text: string;
+  text?: string;
   files: FileDocDataForDocReference[];
 }
 
@@ -851,6 +859,7 @@ async function createImagesAndDocsResources(
   appointmentID: string,
   dateCreated: string,
   fhirClient: FhirClient,
+  customFileTypes: string[],
 ): Promise<void> {
   console.log('reviewing insurance cards and photo id cards');
 
@@ -887,6 +896,17 @@ async function createImagesAndDocsResources(
     text: 'Patient work/school notes',
     files: [],
   };
+
+  // additional
+  const additionalDocsToSave: DocToSaveData[] = customFileTypes.map((type) => ({
+    code: undefined,
+    display: type
+      .split('-')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' '), // Capitalize each word
+    text: type,
+    files: [],
+  }));
 
   if (files) {
     if (files[INSURANCE_CARD_FRONT_ID]?.z3Url) {
@@ -961,23 +981,54 @@ async function createImagesAndDocsResources(
           title: key,
         });
       }
+
+      if (customFileTypes.includes(key) && files[key]?.z3Url) {
+        additionalDocsToSave
+          .find((doc) => doc.text === key)
+          ?.files.push({
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            url: files[key].z3Url!,
+            title: key,
+          });
+      }
     });
   }
 
-  docsToSave.push(insuranceDocToSave, photoIdDocToSave, patientPhotosDocToSave, schoolWorkNotesDocToSave);
+  docsToSave.push(
+    insuranceDocToSave,
+    photoIdDocToSave,
+    patientPhotosDocToSave,
+    schoolWorkNotesDocToSave,
+    ...additionalDocsToSave,
+  );
 
   docsToSave.forEach(async (d) => {
     // Update insurance cards DocumentReferences
+    const searchParams = [
+      {
+        name: 'related',
+        value: `Patient/${patientID}`,
+      },
+    ];
+    if (d.code) {
+      searchParams.push({
+        name: 'type',
+        value: d.code,
+      });
+    }
+
     await createFilesDocumentReference({
       files: d.files,
       type: {
-        coding: [
-          {
-            system: 'http://loinc.org',
-            code: d.code,
-            display: d.display,
-          },
-        ],
+        coding: d.code
+          ? [
+              {
+                system: 'http://loinc.org',
+                code: d.code,
+                display: d.display,
+              },
+            ]
+          : undefined,
         text: d.text,
       },
       dateCreated,
@@ -986,16 +1037,7 @@ async function createImagesAndDocsResources(
           related: [{ reference: `Patient/${patientID}` }, { reference: `Appointment/${appointmentID}` }],
         },
       },
-      searchParams: [
-        {
-          name: 'related',
-          value: `Patient/${patientID}`,
-        },
-        {
-          name: 'type',
-          value: d.code,
-        },
-      ],
+      searchParams: searchParams,
       fhirClient,
       ottehrModule: OTTEHR_MODULE.TM,
     });

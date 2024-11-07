@@ -1,14 +1,8 @@
 import { Box, Container } from '@mui/material';
 import { FC, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import {
-  AppointmentFooter,
-  AppointmentHeader,
-  AppointmentSidePanel,
-  AppointmentTabs,
-  AppointmentTabsHeader,
-} from '../telemed/features/appointment';
-import { PATIENT_PHOTO_CODE, getQuestionnaireResponseByLinkId } from 'ehr-utils';
+import { AppointmentHeader, AppointmentSidePanel, AppointmentTabs } from '../telemed/features/appointment';
+import { PATIENT_PHOTO_CODE } from 'ehr-utils';
 import {
   useAppointmentStore,
   useExamObservationsStore,
@@ -25,6 +19,7 @@ import {
   Patient,
   Encounter,
   DocumentReference,
+  Attachment,
 } from 'fhir/r4';
 
 export const AppointmentPage: FC = () => {
@@ -41,6 +36,9 @@ export const AppointmentPage: FC = () => {
       const questionnaireResponse = data?.find(
         (resource: FhirResource) => resource.resourceType === 'QuestionnaireResponse',
       ) as unknown as QuestionnaireResponse;
+      const docs = data?.filter(
+        (resource: FhirResource) => resource.resourceType === 'DocumentReference' && resource.status === 'current',
+      );
       useAppointmentStore.setState({
         appointment: data?.find(
           (resource: FhirResource) => resource.resourceType === 'Appointment',
@@ -61,6 +59,14 @@ export const AppointmentPage: FC = () => {
             )
             .flatMap((docRef: FhirResource) => (docRef as DocumentReference).content.map((cnt) => cnt.attachment.url))
             .filter(Boolean) as string[]) || [],
+        attachments:
+          (data
+            ?.filter(
+              (resource: FhirResource) =>
+                resource.resourceType === 'DocumentReference' && resource.type?.coding?.[0].code !== PATIENT_PHOTO_CODE,
+            )
+            .flatMap((docRef: FhirResource) => (docRef as DocumentReference).content.map((cnt) => cnt.attachment))
+            .filter(Boolean) as Attachment[]) || [],
       });
     },
   );

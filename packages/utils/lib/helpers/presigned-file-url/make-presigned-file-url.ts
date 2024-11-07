@@ -45,6 +45,13 @@ export const makePresignedFileURL = async (
   }
   const patientID = patient.replace('Patient/', '');
 
+  let customFileTypes: string[]
+  try {
+    customFileTypes = getSecret(SecretsKeys.ALLOWED_FILE_TYPES, input.secrets).split(',')
+  } catch (e) {
+    customFileTypes = []
+  }
+
   let bucketName = '';
   if (fileType === PHOTO_ID_FRONT_ID) {
     bucketName = 'id-cards';
@@ -64,6 +71,8 @@ export const makePresignedFileURL = async (
     bucketName = `${SCHOOL_WORK_NOTE_PREFIX}-templates`;
   } else if (fileType === SCHOOL_WORK_NOTE_BOTH_ID2) {
     bucketName = `${SCHOOL_WORK_NOTE_PREFIX}-templates`;
+  } else if (customFileTypes.includes(fileType)) {
+    bucketName = fileType;
   } else {
     throw Error('Unknown bucket');
   }
