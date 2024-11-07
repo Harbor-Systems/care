@@ -63,9 +63,7 @@ export const AppointmentPage: FC = () => {
           (data
             ?.filter(
               (resource: FhirResource) =>
-                resource.resourceType === 'DocumentReference' &&
-                resource.status === 'current' &&
-                resource.type?.coding?.[0].code !== PATIENT_PHOTO_CODE,
+                resource.resourceType === 'DocumentReference' && resource.type?.coding?.[0].code !== PATIENT_PHOTO_CODE,
             )
             .flatMap((docRef: FhirResource) => (docRef as DocumentReference).content.map((cnt) => cnt.attachment))
             .filter(Boolean) as Attachment[]) || [],
