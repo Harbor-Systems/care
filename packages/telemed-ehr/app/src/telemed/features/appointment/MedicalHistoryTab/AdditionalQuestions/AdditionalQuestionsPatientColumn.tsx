@@ -46,16 +46,14 @@ export const AdditionalQuestionsPatientColumn: FC = () => {
     }
     const answer = questionnaireResponse?.item?.find((q) => q.linkId === questionStructure.linkId)?.answer?.[0]
       ?.valueString;
-    return answer ? (
+    return questionStructure.linkId.endsWith('-attachment') ? (
+      <AttachmentsCard attachmentTitle={questionStructure.linkId} />
+    ) : answer ? (
       <Box key={questionStructure.linkId} sx={{ paddingTop: 2 }}>
         <Typography variant="overline" sx={{ opacity: 0.6 }}>
           {questionStructure.text}
         </Typography>
-        {questionStructure.linkId.endsWith('-attachment') ? (
-          <AttachmentsCard attachmentTitle={questionStructure.linkId} />
-        ) : (
-          <Typography>{answer}</Typography>
-        )}
+        <Typography>{answer}</Typography>
       </Box>
     ) : null;
   };
