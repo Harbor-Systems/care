@@ -213,6 +213,13 @@ export const index = async (input: ZambdaInput): Promise<APIGatewayProxyResult> 
       console.log(`Sms data: recipient: ${relatedPersonRef}; verifiedPhoneNumber: ${verifiedPhoneNumber};`);
 
       if (getSecret(SecretsKeys.SENDGRID_API_KEY, secrets)) {
+        let slotDuration = 30;
+        try {
+          slotDuration = parseInt(getSecret(SecretsKeys.TELEMED_SCHEDULE_SLOT_LENGTH, secrets));
+        } catch (e) {
+          /* empty */
+        }
+
         await sendConfirmationMessages(
           getPatientContactEmail(patient),
           getPatientFirstName(patient),
@@ -224,7 +231,7 @@ export const index = async (input: ZambdaInput): Promise<APIGatewayProxyResult> 
           appointment.appointmentType?.text || '',
           verifiedPhoneNumber,
           token,
-          createICSContent(startTime, timezone, patient, `${location.name}`, secrets),
+          createICSContent(startTime, timezone, patient, `${location.name}`, secrets, slotDuration),
           questionnaireSummary,
         );
       }

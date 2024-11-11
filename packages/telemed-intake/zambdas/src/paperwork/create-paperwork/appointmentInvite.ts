@@ -1,6 +1,7 @@
 import { Patient } from 'fhir/r4';
 import { getFullName, getPatientFirstName, getSecret, Secrets, SecretsKeys } from '../../../../../utils';
 import { getPatientContactEmail } from '../../appointment/create-appointment';
+import { DateTime } from 'luxon';
 
 export const createICSContent = (
   startTime: string,
@@ -16,6 +17,14 @@ export const createICSContent = (
     return splitDate.join('T') + 'T' + last;
   };
 
+  const zonedStartTime =
+    DateTime.fromISO(startTime).setZone(timezone).toISO({ suppressMilliseconds: true }) || startTime;
+
+  const endTime = new Date(zonedStartTime);
+  endTime.setMinutes(endTime.getMinutes() + durationMinutes);
+  const zonedEndTime =
+    DateTime.fromJSDate(endTime).setZone(timezone).toISO({ suppressMilliseconds: true }) || endTime.toISOString();
+
   let inviteeEmail;
   try {
     inviteeEmail = getSecret(SecretsKeys.TELEMED_SENDGRID_EMAIL_BCC, secrets);
@@ -30,8 +39,8 @@ CALSCALE:GREGORIAN
 BEGIN:VEVENT
 UID:${new Date().getTime()}
 DTSTAMP;TZID=${timezone}:${formatDate(new Date().toISOString())}
-DTSTART;TZID=${timezone}:${formatDate(startTime)}
-DURATION:PT${durationMinutes}M
+DTSTART;TZID=${timezone}:${formatDate(zonedStartTime)}
+DTEND;TZID=${timezone}:${formatDate(zonedEndTime)}
 SUMMARY:Appointment
 DESCRIPTION:Appointment for ${getPatientFirstName(patient)}
 LOCATION:${location}${
